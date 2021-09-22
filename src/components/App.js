@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
+import PopupWithImage from "./PopupWithImage";
 
 function App() {
   return (
@@ -87,13 +88,7 @@ function App() {
             <button type="button" className="pop-up__exit-button"></button>
           </div>
         </article>
-        <article className="pop-up pop-up_content_image">
-          <div className="pop-up__image-container">
-            <img src="#" alt="тут будет 'alt' открываемой картинки" className="pop-up__image"/>
-            <h2 className="pop-up__image-title"></h2>
-            <button type="button" className="pop-up__exit-button pop-up__exit-button_place_image-pop-up"></button>
-          </div>
-        </article>
+        <PopupWithImage />
         <article className="pop-up pop-up_content_delete">
           <div className="pop-up__background">
             <h2 className="pop-up__title">Вы уверены?</h2>
