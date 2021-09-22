@@ -9,6 +9,37 @@ function App() {
         <Header />
         <Main />
         <Footer />
+        <article className="pop-up pop-up_content_edit">
+          <div className="pop-up__background">
+            <h2 className="pop-up__title">Редактировать профиль</h2>
+            <form noValidate className="form" name="editForm">
+              <label htmlFor="name-input" className="form__field">
+                <input type="text"
+                       className="form__input"
+                       placeholder="Введите ваше имя"
+                       name="name"
+                       id="name-input"
+                       required
+                       minLength="2"
+                       maxLength="40" />
+                  <span className="form__input-error name-input-error"></span>
+              </label>
+              <label htmlFor="description-input" className="form__field">
+                <input type="text"
+                       className="form__input"
+                       placeholder="Расскажите о себе"
+                       name="about"
+                       id="description-input"
+                       required
+                       minLength="2"
+                       maxLength="200" />
+                  <span className="form__input-error description-input-error"></span>
+              </label>
+              <button type="submit" className="form__submit-button" name="submitButton">Сохранить</button>
+            </form>
+            <button type="button" className="pop-up__exit-button"></button>
+          </div>
+        </article>
         <article className="pop-up pop-up_content_add">
           <div className="pop-up__background">
             <h2 className="pop-up__title">Новое место</h2>
