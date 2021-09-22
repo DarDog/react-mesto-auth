@@ -12,7 +12,7 @@ function App() {
         <article className="pop-up pop-up_content_edit">
           <div className="pop-up__background">
             <h2 className="pop-up__title">Редактировать профиль</h2>
-            <form noValidate className="form" name="editForm">
+            <form noValidate className="form" name="edit">
               <label htmlFor="name-input" className="form__field">
                 <input type="text"
                        className="form__input"
@@ -43,7 +43,7 @@ function App() {
         <article className="pop-up pop-up_content_add">
           <div className="pop-up__background">
             <h2 className="pop-up__title">Новое место</h2>
-            <form noValidate className="form" name="addForm">
+            <form noValidate className="form" name="add">
               <label htmlFor="card-name-input" className="form__field">
                 <input type="text"
                        className="form__input"
@@ -72,7 +72,7 @@ function App() {
         <article className="pop-up pop-up_content_avatar">
           <div className="pop-up__background">
             <h2 className="pop-up__title">Обновить аватар</h2>
-            <form noValidate className="form" name="avatarForm">
+            <form noValidate className="form" name="avatar">
               <label htmlFor="card-link-input" className="form__field">
                 <input type="url"
                        className="form__input"
@@ -97,7 +97,7 @@ function App() {
         <article className="pop-up pop-up_content_delete">
           <div className="pop-up__background">
             <h2 className="pop-up__title">Вы уверены?</h2>
-            <form noValidate className="form" name="deleteForm">
+            <form noValidate className="form" name="delete">
               <button type="submit" className="form__submit-button" name="submitButton">ДА</button>
             </form>
             <button type="button" className="pop-up__exit-button"></button>
@@ -106,7 +106,7 @@ function App() {
         <article className="pop-up pop-up_content_error-massage">
           <div className="pop-up__background">
             <h2 className="pop-up__title">Ой, что-то пошло не так!</h2>
-            <form noValidate className="form" name="errorMassageForm">
+            <form noValidate className="form" name="error-massage">
               <p className="error_massage">Ошибка 404</p>
               <button type="submit" className="form__submit-button" name="submitButton">Ок</button>
             </form>
