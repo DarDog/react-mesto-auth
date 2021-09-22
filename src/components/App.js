@@ -1,15 +1,14 @@
 import React from "react";
 import Header from "./Header";
 import Main from "./Main";
+import Footer from "./Footer";
 
 function App() {
   return (
       <div className="page">
         <Header />
         <Main />
-        <footer className="footer page__footer">
-          <p className="footer__copyright">&copy;&nbsp;2021 Mesto Russia</p>
-        </footer>
+        <Footer />
         <article className="pop-up pop-up_content_add">
           <div className="pop-up__background">
             <h2 className="pop-up__title">Новое место</h2>
