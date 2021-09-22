@@ -26,14 +26,13 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:feature/component-header" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:feature/component-main" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Convert project mesto at react">
-      <change afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Make Header component">
+      <change afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +57,9 @@
     <option name="directoryName" value="x48g7smv" />
   </component>
   <component name="ProjectId" id="1yTa2ZRhcQN9BVEuYrMu8LSnCKS" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -92,7 +94,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1632277825202</updated>
-      <workItem from="1632277827232" duration="2725000" />
+      <workItem from="1632277827232" duration="3637000" />
     </task>
     <task id="LOCAL-00001" summary="Convert project mesto at react">
       <created>1632280334299</created>
@@ -101,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632280334299</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Make Header component">
+      <created>1632280684568</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1632280684568</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,7 +127,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/component-header" />
+                        <option value="feature/component-main" />
                       </list>
                     </value>
                   </entry>
@@ -132,7 +141,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Convert project mesto at react" />
-    <option name="LAST_COMMIT_MESSAGE" value="Convert project mesto at react" />
+    <MESSAGE value="Convert make Header component" />
+    <MESSAGE value="Make Header component" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make Header component" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2238" y="196" key="#ESLint" timestamp="1632278560501">
