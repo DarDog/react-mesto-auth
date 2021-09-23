@@ -10,7 +10,7 @@ function App() {
         [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false),
         [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false),
         [isDeleterPopupOpen, setDeleterPopupOpen] = React.useState(false),
-        [selectedCard, setSelectedCard] = React.useState('');
+        [selectedCard, setSelectedCard] = React.useState(false);
 
   let isOpen,
       title,
@@ -42,7 +42,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setEditProfilePopupOpen(false);
     setDeleterPopupOpen(false);
-    setSelectedCard('')
+    setSelectedCard(false)
   }
 
   React.useEffect(() => {
