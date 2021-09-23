@@ -8,6 +8,11 @@
       </path>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
       <path>
@@ -16,13 +21,21 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:feature/component-popup" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Make Footer component">
+    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Make component for popup with image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PopupWithForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupWithForm.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +72,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mesto" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -83,7 +96,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1632277825202</updated>
-      <workItem from="1632277827232" duration="5419000" />
+      <workItem from="1632277827232" duration="15208000" />
+      <workItem from="1632369272913" duration="1220000" />
     </task>
     <task id="LOCAL-00001" summary="Convert project mesto at react">
       <created>1632280334299</created>
@@ -113,7 +127,28 @@
       <option name="project" value="LOCAL" />
       <updated>1632281634524</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Make openers for popups">
+      <created>1632283350267</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1632283350267</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Make component for popups with form">
+      <created>1632284404613</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1632284404613</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Make component for popup with image">
+      <created>1632284490818</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1632284490818</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,11 +159,24 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/component-popup" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Convert project mesto at react" />
@@ -136,7 +184,10 @@
     <MESSAGE value="Make Header component" />
     <MESSAGE value="Make Main component" />
     <MESSAGE value="Make Footer component" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make Footer component" />
+    <MESSAGE value="Make openers for popups" />
+    <MESSAGE value="Make component for popups with form" />
+    <MESSAGE value="Make component for popup with image" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make component for popup with image" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2238" y="196" key="#ESLint" timestamp="1632278560501">
@@ -147,9 +198,9 @@
       <screen x="1920" y="-515" width="900" height="1600" />
     </state>
     <state x="2150" y="40" key="FileChooserDialogImpl/0.0.1920.1080/1920.-515.900.1600@1920.-515.900.1600" timestamp="1632277863271" />
-    <state x="2033" y="-150" width="672" height="678" key="search.everywhere.popup" timestamp="1632282669703">
+    <state x="2033" y="-150" width="672" height="678" key="search.everywhere.popup" timestamp="1632291037348">
       <screen x="1920" y="-515" width="900" height="1600" />
     </state>
-    <state x="2033" y="-150" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/1920.-515.900.1600@1920.-515.900.1600" timestamp="1632282669703" />
+    <state x="2033" y="-150" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/1920.-515.900.1600@1920.-515.900.1600" timestamp="1632291037348" />
   </component>
 </project>
