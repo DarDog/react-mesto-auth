@@ -1,6 +1,6 @@
 import React from "react";
 
-function Cards(props) {
+function Card(props) {
   const card = props.card
 
   const handleClick = () => {
@@ -19,4 +19,4 @@ function Cards(props) {
   )
 }
 
-export default Cards
+export default Card

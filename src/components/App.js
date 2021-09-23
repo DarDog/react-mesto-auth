@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithImage from "./PopupWithImage";
+import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 
 function App() {
@@ -154,7 +154,7 @@ function App() {
             children={children}
         />
         {selectedCard && (
-            <PopupWithImage
+            <ImagePopup
                 card={selectedCard}
                 onClose={closeAllPopups}
             />
