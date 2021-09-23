@@ -19,10 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Complete state logic for selectCard and image Popup">
+    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Complete checklist">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1632277825202</updated>
       <workItem from="1632277827232" duration="15208000" />
-      <workItem from="1632369272913" duration="9855000" />
+      <workItem from="1632369272913" duration="11031000" />
     </task>
     <task id="LOCAL-00001" summary="Convert project mesto at react">
       <created>1632280334299</created>
@@ -171,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632389324141</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Complete checklist">
+      <created>1632390158943</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1632390158943</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,7 +210,8 @@
     <MESSAGE value="Complete state logic for Cards" />
     <MESSAGE value="Make component for Cards" />
     <MESSAGE value="Complete state logic for selectCard and image Popup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete state logic for selectCard and image Popup" />
+    <MESSAGE value="Complete checklist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete checklist" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2238" y="196" key="#ESLint" timestamp="1632278560501">
