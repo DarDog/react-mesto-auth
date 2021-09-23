@@ -26,16 +26,15 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:feature/component-popup" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:feature/Api-components" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Make component for popup with image">
+    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Complete state logic for popups">
+      <change afterPath="$PROJECT_DIR$/src/utils/Api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PopupWithForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PopupWithForm.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +66,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -97,7 +97,7 @@
       <option name="presentableId" value="Default" />
       <updated>1632277825202</updated>
       <workItem from="1632277827232" duration="15208000" />
-      <workItem from="1632369272913" duration="1220000" />
+      <workItem from="1632369272913" duration="3125000" />
     </task>
     <task id="LOCAL-00001" summary="Convert project mesto at react">
       <created>1632280334299</created>
@@ -148,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632284490818</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Complete state logic for popups">
+      <created>1632370604884</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1632370604884</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,7 +172,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/component-popup" />
+                        <option value="feature/Api-components" />
                       </list>
                     </value>
                   </entry>
@@ -179,6 +186,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Convert project mesto at react" />
     <MESSAGE value="Convert make Header component" />
     <MESSAGE value="Make Header component" />
@@ -187,7 +195,8 @@
     <MESSAGE value="Make openers for popups" />
     <MESSAGE value="Make component for popups with form" />
     <MESSAGE value="Make component for popup with image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make component for popup with image" />
+    <MESSAGE value="Complete state logic for popups" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete state logic for popups" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2238" y="196" key="#ESLint" timestamp="1632278560501">
