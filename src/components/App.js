@@ -147,16 +147,6 @@ function App() {
             children={children}
         />
         <PopupWithImage />
-        <template className="card-template">
-          <li className="card">
-            <img src="/" alt="тут будет 'alt' добавляемой картинки" className="card__image"/>
-            <h2 className="card__title"> </h2>
-            <div className="card__like">
-              <button className="card__like-button" type="button"> </button>
-              <p className="card__like-count"> </p>
-            </div>
-          </li>
-        </template>
       </div>
   );
 }

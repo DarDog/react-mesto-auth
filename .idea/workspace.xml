@@ -31,9 +31,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Complete state logic for popups">
-      <change afterPath="$PROJECT_DIR$/src/utils/Api.js" afterDir="false" />
+    <list default="true" id="35070dfb-70d9-44ed-95bd-b083e4a87051" name="Default Changelist" comment="Complete state logic for User info">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,7 +97,7 @@
       <option name="presentableId" value="Default" />
       <updated>1632277825202</updated>
       <workItem from="1632277827232" duration="15208000" />
-      <workItem from="1632369272913" duration="3125000" />
+      <workItem from="1632369272913" duration="4507000" />
     </task>
     <task id="LOCAL-00001" summary="Convert project mesto at react">
       <created>1632280334299</created>
@@ -155,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632370604884</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Complete state logic for User info">
+      <created>1632382673177</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1632382673177</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,7 +203,8 @@
     <MESSAGE value="Make component for popups with form" />
     <MESSAGE value="Make component for popup with image" />
     <MESSAGE value="Complete state logic for popups" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete state logic for popups" />
+    <MESSAGE value="Complete state logic for User info" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete state logic for User info" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2238" y="196" key="#ESLint" timestamp="1632278560501">
@@ -207,6 +215,10 @@
       <screen x="1920" y="-515" width="900" height="1600" />
     </state>
     <state x="2150" y="40" key="FileChooserDialogImpl/0.0.1920.1080/1920.-515.900.1600@1920.-515.900.1600" timestamp="1632277863271" />
+    <state x="2026" y="123" key="run.anything.popup" timestamp="1632382937709">
+      <screen x="1920" y="-515" width="900" height="1600" />
+    </state>
+    <state x="2026" y="123" key="run.anything.popup/0.0.1920.1080/1920.-515.900.1600@1920.-515.900.1600" timestamp="1632382937709" />
     <state x="2033" y="-150" width="672" height="678" key="search.everywhere.popup" timestamp="1632291037348">
       <screen x="1920" y="-515" width="900" height="1600" />
     </state>

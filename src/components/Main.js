@@ -5,19 +5,29 @@ function Main(props) {
 
   const [userName, setUserName] = React.useState(''),
         [userDescription, setUserDescription] = React.useState(''),
-        [userAvatar, setUserAvatar] = React.useState('');
+        [userAvatar, setUserAvatar] = React.useState(''),
+        [cards, setCards] = React.useState([])
 
   React.useEffect(() => {
-    api.getUserInfo()
-        .then((userInfo) => {
+    Promise.all([
+        api.getUserInfo(),
+        api.getInitialCards()
+    ])
+        .then(([userInfo, cards]) => {
           setUserName(userInfo.name);
           setUserDescription(userInfo.about);
-          setUserAvatar(userInfo.avatar)
+          setUserAvatar(userInfo.avatar);
+
+          console.log(userInfo)
+          setCards(cards)
+          console.log(cards)
         })
         .catch((err) => {
           console.log(err)
         })
-  })
+  }, [])
+
+  console.log(cards)
 
   return (
       <main className="main page__main">
@@ -34,6 +44,18 @@ function Main(props) {
         </section>
         <section className="elements main__elements">
           <ul className="elements__cards">
+            {cards.map(card => {
+              return (
+                  <li className="card">
+                    <img src={card.link} alt={card.name} className="card__image"/>
+                    <h2 className="card__title">{card.name}</h2>
+                    <div className="card__like">
+                      <button className="card__like-button" type="button"></button>
+                      <p className="card__like-count">{card.likes.length}</p>
+                    </div>
+                  </li>
+              )
+            })}
           </ul>
         </section>
       </main>
