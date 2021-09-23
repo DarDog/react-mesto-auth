@@ -29,8 +29,8 @@ function App() {
     setEditAvatarPopupOpen(true);
   }
 
-  const handleCardClick = () => {
-    setSelectedCard('')
+  const handleCardClick = (card) => {
+    setSelectedCard(card)
   }
 
   const handleDeleterClick = () => {
@@ -153,10 +153,12 @@ function App() {
             name={name}
             children={children}
         />
-        <PopupWithImage
-          card={selectedCard}
-          onclose={closeAllPopups}
-        />
+        {selectedCard && (
+            <PopupWithImage
+                card={selectedCard}
+                onClose={closeAllPopups}
+            />
+        )}
       </div>
   );
 }
