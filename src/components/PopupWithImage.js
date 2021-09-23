@@ -1,12 +1,20 @@
 import React from "react";
 
-function PopupWithImage() {
+function PopupWithImage(props) {
+  const card = props.card
+
+  const closeByClickAtOverlay = (e) => {
+    if (e.target.classList.contains('pop-up')) {
+      props.onClose()
+    }
+  }
+
   return (
-      <article className="pop-up pop-up_content_image">
+      <article onClick={closeByClickAtOverlay} className={`pop-up pop-up_content_image ${ card && 'pop-up_opened'}`}>
         <div className="pop-up__image-container">
-          <img src="#" alt="тут будет 'alt' открываемой картинки" className="pop-up__image"/>
-          <h2 className="pop-up__image-title"></h2>
-          <button type="button" className="pop-up__exit-button pop-up__exit-button_place_image-pop-up"></button>
+          <img src={card.link} alt={card.name} className="pop-up__image"/>
+          <h2 className="pop-up__image-title">{card.name}</h2>
+          <button onClick={props.onClose} type="button" className="pop-up__exit-button pop-up__exit-button_place_image-pop-up"/>
         </div>
       </article>
   );

@@ -9,7 +9,8 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false),
         [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false),
         [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false),
-        [isDeleterPopupOpen, setDeleterPopupOpen] = React.useState(false);
+        [isDeleterPopupOpen, setDeleterPopupOpen] = React.useState(false),
+        [selectedCard, setSelectedCard] = React.useState('');
 
   let isOpen,
       title,
@@ -28,6 +29,10 @@ function App() {
     setEditAvatarPopupOpen(true);
   }
 
+  const handleCardClick = (card) => {
+    setSelectedCard(card)
+  }
+
   const handleDeleterClick = () => {
     setDeleterPopupOpen(true);
   }
@@ -37,6 +42,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setEditProfilePopupOpen(false);
     setDeleterPopupOpen(false);
+    setSelectedCard('')
   }
 
   React.useEffect(() => {
@@ -70,7 +76,7 @@ function App() {
                  required
                  minLength="2"
                  maxLength="40" />
-          <span className="form__input-error name-input-error"></span>
+          <span className="form__input-error name-input-error"/>
         </label>
         <label htmlFor="description-input" className="form__field">
           <input type="text"
@@ -81,7 +87,7 @@ function App() {
                  required
                  minLength="2"
                  maxLength="200" />
-          <span className="form__input-error description-input-error"></span>
+          <span className="form__input-error description-input-error"/>
         </label>
         <button type="submit" className="form__submit-button" name="submitButton">Сохранить</button>
       </>
@@ -96,7 +102,7 @@ function App() {
                  required
                  minLength="2"
                  maxLength="30"/>
-          <span className="form__input-error card-name-input-error"></span>
+          <span className="form__input-error card-name-input-error"/>
         </label>
         <label htmlFor="card-link-input" className="form__field">
           <input type="url"
@@ -105,7 +111,7 @@ function App() {
                  name="link"
                  id="card-link-input"
                  required/>
-          <span className="form__input-error card-link-input-error"></span>
+          <span className="form__input-error card-link-input-error"/>
         </label>
         <button type="submit" className="form__submit-button" name="submitButton">Создать</button>
       </>
@@ -118,7 +124,7 @@ function App() {
                  name="avatar"
                  id="profile-avatar-link-input"
                  required/>
-          <span className="form__input-error profile-avatar-link-input-error"></span>
+          <span className="form__input-error profile-avatar-link-input-error"/>
         </label>
         <button type="submit" className="form__submit-button" name="submitButton">Сохранить</button>
       </>
@@ -137,6 +143,7 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
             onCardDeleter={handleDeleterClick}
+            onCardClick={handleCardClick}
         />
         <Footer />
         <PopupWithForm
@@ -146,17 +153,12 @@ function App() {
             name={name}
             children={children}
         />
-        <PopupWithImage />
-        <template className="card-template">
-          <li className="card">
-            <img src="/" alt="тут будет 'alt' добавляемой картинки" className="card__image"/>
-            <h2 className="card__title"> </h2>
-            <div className="card__like">
-              <button className="card__like-button" type="button"> </button>
-              <p className="card__like-count"> </p>
-            </div>
-          </li>
-        </template>
+        {selectedCard && (
+            <PopupWithImage
+                card={selectedCard}
+                onClose={closeAllPopups}
+            />
+        )}
       </div>
   );
 }
