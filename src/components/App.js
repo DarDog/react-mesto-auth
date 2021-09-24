@@ -6,10 +6,10 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 
 function App() {
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false),
-        [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false),
-        [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false),
-        [isDeleterPopupOpen, setDeleterPopupOpen] = React.useState(false),
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
+        [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false),
+        [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false),
+        [isDeleterPopupOpen, setIsDeleterPopupOpen] = React.useState(false),
         [selectedCard, setSelectedCard] = React.useState(false);
 
   let isOpen,
@@ -18,15 +18,15 @@ function App() {
       children;
 
   const handleEditProfileClick = () => {
-    setEditProfilePopupOpen(true);
+    setIsEditProfilePopupOpen(true);
   }
 
   const handleAddPlaceClick = () => {
-    setAddPlacePopupOpen(true);
+    setIsAddPlacePopupOpen(true);
   }
 
   const handleEditAvatarClick = () => {
-    setEditAvatarPopupOpen(true);
+    setIsEditAvatarPopupOpen(true);
   }
 
   const handleCardClick = (card) => {
@@ -34,14 +34,14 @@ function App() {
   }
 
   const handleDeleterClick = () => {
-    setDeleterPopupOpen(true);
+    setIsDeleterPopupOpen(true);
   }
 
   const closeAllPopups = () => {
-    setEditAvatarPopupOpen(false);
-    setAddPlacePopupOpen(false);
-    setEditProfilePopupOpen(false);
-    setDeleterPopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsDeleterPopupOpen(false);
     setSelectedCard(false)
   }
 
