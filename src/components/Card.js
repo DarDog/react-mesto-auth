@@ -8,7 +8,7 @@ function Card(props) {
   }
 
   return (
-      <li key={card._id} className="card">
+      <li className="card">
         <img onClick={handleClick} src={card.link} alt={card.name} className="card__image"/>
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
