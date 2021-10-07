@@ -2,25 +2,22 @@ import React from 'react'
 import PopupWithForm from "./PopupWithForm";
 
 function ErrorPopup(props) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    props.onAccessError();
+  }
 
   return (
       <PopupWithForm
-          isOpen={isDeleterPopupOpen}
+          isOpen={props.isOpen}
           title={'Ой, что то пошло не так'}
           name={'error'}
           buttonText={'ОК'}
-          onClose={closeAllPopups}
+          onClose={props.onClose}
+          onSubmit={handleSubmit}
       >
-        <label htmlFor="card-link-input" className="form__field">
-          <input type="url"
-                 className="form__input"
-                 placeholder="Ссылка на картинку"
-                 name="avatar"
-                 id="profile-avatar-link-input"
-                 required/>
-          <span className="form__input-error profile-avatar-link-input-error"/>
-        </label>
+        <p className={'error_massage'}>{props.errorMassage}</p>
       </PopupWithForm>
   )
 }

@@ -16,6 +16,8 @@ function App() {
       [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false),
       [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false),
       [isDeleterPopupOpen, setIsDeleterPopupOpen] = React.useState(false),
+      [isErrorPopupOpen, setIsErrorPopupOpen] = React.useState(false),
+      [errorMassage, setErrorMassage] = React.useState(''),
       [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}),
       [currentUser, setCurrentUser] = React.useState({}),
       [cards, setCards] = React.useState([]);
@@ -30,7 +32,8 @@ function App() {
           setCards(cards);
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }, [])
 
@@ -61,7 +64,8 @@ function App() {
           closeAllPopups()
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }
 
@@ -71,6 +75,14 @@ function App() {
           setCurrentUser(userInfo);
           closeAllPopups();
         })
+        .catch(err => {
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
+        })
+  }
+
+  const handleErrorAccess = () => {
+    closeAllPopups()
   }
 
   const closeAllPopups = () => {
@@ -101,7 +113,8 @@ function App() {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }
 
@@ -111,7 +124,8 @@ function App() {
           setCards((state) => state.filter((c) => c._id === card._id ? c.remove : c))
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }
 
@@ -122,7 +136,8 @@ function App() {
           closeAllPopups();
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }
 
@@ -156,7 +171,12 @@ function App() {
               onClose={closeAllPopups}
               onAddCard={handleAddPlaceSubmit}
           />
-          <ErrorPopup/>
+          <ErrorPopup
+              isOpen={isErrorPopupOpen}
+              onClose={closeAllPopups}
+              errorMassage={errorMassage}
+              onAccessError={handleErrorAccess}
+          />
           <PopupWithForm
               isOpen={isDeleterPopupOpen}
               title={'Вы уверены?'}
