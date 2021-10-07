@@ -83,6 +83,40 @@ function App() {
     return () => document.removeEventListener('keydown', closeByEscape);
   }, [])
 
+  const [cards, setCards] = React.useState([]);
+
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some(like => like._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, !isLiked)
+        .then(newCard => {
+          setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        })
+        .catch(err => {
+          console.log(err)
+        })
+  }
+
+  const handleCardDelete = (card) => {
+    api.deleteCard(card._id)
+        .then(() => {
+          setCards((state) => state.filter((c) => c._id === card._id ? c.remove : c))
+        })
+        .catch(err => {
+          console.log(err)
+        })
+  }
+
+  React.useEffect(() => {
+    api.getInitialCards()
+        .then(cards => {
+          setCards(cards)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+  }, [])
+
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
@@ -94,6 +128,9 @@ function App() {
               onEditAvatar={handleEditAvatarClick}
               onCardDeleter={handleDeleterClick}
               onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
           />
           <Footer/>
           <EditProfilePopup
