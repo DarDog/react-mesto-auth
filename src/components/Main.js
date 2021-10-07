@@ -26,6 +26,9 @@ function Main(props) {
         .then(() => {
           setCards((state) => state.filter((c) => c._id === card._id ? c.remove : c))
         })
+        .catch(err => {
+          console.log(err)
+        })
   }
 
   React.useEffect(() => {
