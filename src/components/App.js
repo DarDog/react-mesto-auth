@@ -7,6 +7,7 @@ import PopupWithForm from "./popups/PopupWithForm";
 import EditProfilePopup from "./popups/EditProfilePopup";
 import EditAvatarPopup from "./popups/EditAvatarPopup";
 import AddPlacePopup from "./popups/AddPlacePopup";
+import ErrorPopup from "./popups/ErrorPopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
@@ -155,6 +156,7 @@ function App() {
               onClose={closeAllPopups}
               onAddCard={handleAddPlaceSubmit}
           />
+          <ErrorPopup/>
           <PopupWithForm
               isOpen={isDeleterPopupOpen}
               title={'Вы уверены?'}
