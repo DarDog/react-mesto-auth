@@ -23,13 +23,13 @@ class Api {
         });
   }
 
-  sendUserInfo(data) {
+  sendUserInfo(userInfo) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headersContent,
       body: JSON.stringify({
-        name: data.name,
-        about: data.about
+        name: userInfo.name,
+        about: userInfo.about
       })
     })
         .then((res) => {
@@ -37,20 +37,20 @@ class Api {
         });
   }
 
-  sendCard(data) {
+  sendCard(card) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headersContent,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link,
+        name: card.name,
+        link: card.link,
       })
     })
         .then(this._getResponseData);
   }
 
-  deleteCard(data) {
-    return fetch(`${this._baseUrl}/cards/${data}`, {
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headersContent,
     })
@@ -65,12 +65,12 @@ class Api {
         .then(this._getResponseData)
   }
 
-  sendAvatar(data) {
+  sendAvatar(userInfo) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headersContent,
       body: JSON.stringify({
-        avatar: data.avatar
+        avatar: userInfo.avatar
       })
     })
         .then(this._getResponseData);
