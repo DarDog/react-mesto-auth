@@ -57,20 +57,12 @@ class Api {
         .then(this._getResponseData);
   }
 
-  sendLike(data) {
-    return fetch(`${this._baseUrl}/cards/likes/${data}`, {
-      method: 'PUT',
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: isLiked ? 'PUT' : 'DELETE',
       headers: this._headersContent
     })
-        .then(this._getResponseData);
-  }
-
-  deleteLike(data) {
-    return fetch(`${this._baseUrl}/cards/likes/${data}`, {
-      method: 'DELETE',
-      headers: this._headersContent,
-    })
-        .then(this._getResponseData);
+        .then(this._getResponseData)
   }
 
   sendAvatar(data) {
