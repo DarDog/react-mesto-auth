@@ -37,7 +37,7 @@ class Api {
         });
   }
 
-  sendCard(card) {
+  setCard(card) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headersContent,
