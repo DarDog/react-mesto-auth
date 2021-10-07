@@ -10,6 +10,7 @@ import AddPlacePopup from "./popups/AddPlacePopup";
 import ErrorPopup from "./popups/ErrorPopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+import Spinner from "./Spinner";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
@@ -17,6 +18,7 @@ function App() {
       [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false),
       [isDeleterPopupOpen, setIsDeleterPopupOpen] = React.useState(false),
       [isErrorPopupOpen, setIsErrorPopupOpen] = React.useState(false),
+      [isPageLoaded, setIsPageLoaded] = React.useState(false),
       [errorMassage, setErrorMassage] = React.useState(''),
       [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}),
       [currentUser, setCurrentUser] = React.useState({}),
@@ -35,7 +37,14 @@ function App() {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
         })
+        .finally(() => {
+          setTimeout(showContent, 2000)
+        })
   }, [])
+
+  const showContent = () => {
+    setIsPageLoaded(true)
+  }
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
@@ -143,8 +152,10 @@ function App() {
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
-        <div className="page">
           <Header/>
+          <Spinner
+              isLoaded={isPageLoaded}
+          />
           <Main
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
@@ -154,6 +165,7 @@ function App() {
               cards={cards}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
+              isLoaded={isPageLoaded}
           />
           <Footer/>
           <EditProfilePopup
@@ -198,7 +210,6 @@ function App() {
               card={selectedCard}
               onClose={closeAllPopups}
           />
-        </div>
       </CurrentUserContext.Provider>
   );
 }
