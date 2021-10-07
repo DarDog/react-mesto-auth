@@ -11,11 +11,19 @@ function Card({card, ...props}) {
   );
 
   const cardLikeButtonClassName = (
-      `card__like-button ${isOwn ? 'card__like-button_active' : ''}`
+      `card__like-button ${isLiked ? 'card__like-button_active' : ''}`
   )
 
   const handleClick = () => {
     props.onCardClick(card)
+  }
+
+  const handleLikeClick = () => {
+    props.onCardLike(card)
+  }
+
+  const handleCardDelete = () => {
+    props.onCardDelete(card)
   }
 
   return (
@@ -23,10 +31,10 @@ function Card({card, ...props}) {
         <img onClick={handleClick} src={card.link} alt={card.name} className="card__image"/>
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
-          <button className={cardLikeButtonClassName} type="button"/>
+          <button onClick={handleLikeClick} className={cardLikeButtonClassName} type="button"/>
           <p className="card__like-count">{card.likes.length}</p>
         </div>
-        <button className={cardDeleteButtonClassName} type="button"/>
+        <button className={cardDeleteButtonClassName} type="button" onClick={handleCardDelete}/>
       </li>
   )
 }
