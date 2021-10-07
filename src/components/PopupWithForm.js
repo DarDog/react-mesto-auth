@@ -8,7 +8,6 @@ function PopupWithForm(props) {
     }
   }
 
-
   return (
       <article onClick={closeByClickAtOverlay} className={`pop-up pop-up_content_${props.name} ${props.isOpen && 'pop-up_opened'}`}>
         <div className="pop-up__background">
