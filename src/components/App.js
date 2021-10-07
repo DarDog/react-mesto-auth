@@ -7,14 +7,19 @@ import PopupWithForm from "./popups/PopupWithForm";
 import EditProfilePopup from "./popups/EditProfilePopup";
 import EditAvatarPopup from "./popups/EditAvatarPopup";
 import AddPlacePopup from "./popups/AddPlacePopup";
+import ErrorPopup from "./popups/ErrorPopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+import Spinner from "./Spinner";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
       [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false),
       [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false),
       [isDeleterPopupOpen, setIsDeleterPopupOpen] = React.useState(false),
+      [isErrorPopupOpen, setIsErrorPopupOpen] = React.useState(false),
+      [isPageLoaded, setIsPageLoaded] = React.useState(false),
+      [errorMassage, setErrorMassage] = React.useState(''),
       [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}),
       [currentUser, setCurrentUser] = React.useState({}),
       [cards, setCards] = React.useState([]);
@@ -29,9 +34,17 @@ function App() {
           setCards(cards);
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
+        })
+        .finally(() => {
+          setTimeout(showContent, 2000)
         })
   }, [])
+
+  const showContent = () => {
+    setIsPageLoaded(true)
+  }
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
@@ -60,7 +73,8 @@ function App() {
           closeAllPopups()
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }
 
@@ -70,6 +84,14 @@ function App() {
           setCurrentUser(userInfo);
           closeAllPopups();
         })
+        .catch(err => {
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
+        })
+  }
+
+  const handleErrorAccess = () => {
+    closeAllPopups()
   }
 
   const closeAllPopups = () => {
@@ -100,7 +122,8 @@ function App() {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }
 
@@ -110,7 +133,8 @@ function App() {
           setCards((state) => state.filter((c) => c._id === card._id ? c.remove : c))
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }
 
@@ -121,14 +145,17 @@ function App() {
           closeAllPopups();
         })
         .catch(err => {
-          console.log(err)
+          setErrorMassage(err);
+          setIsErrorPopupOpen(true);
         })
   }
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
-        <div className="page">
           <Header/>
+          <Spinner
+              isLoaded={isPageLoaded}
+          />
           <Main
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
@@ -138,6 +165,7 @@ function App() {
               cards={cards}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
+              isLoaded={isPageLoaded}
           />
           <Footer/>
           <EditProfilePopup
@@ -154,6 +182,12 @@ function App() {
               isOpen={isAddPlacePopupOpen}
               onClose={closeAllPopups}
               onAddCard={handleAddPlaceSubmit}
+          />
+          <ErrorPopup
+              isOpen={isErrorPopupOpen}
+              onClose={closeAllPopups}
+              errorMassage={errorMassage}
+              onAccessError={handleErrorAccess}
           />
           <PopupWithForm
               isOpen={isDeleterPopupOpen}
@@ -176,7 +210,6 @@ function App() {
               card={selectedCard}
               onClose={closeAllPopups}
           />
-        </div>
       </CurrentUserContext.Provider>
   );
 }

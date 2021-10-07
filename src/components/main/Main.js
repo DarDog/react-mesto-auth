@@ -7,7 +7,7 @@ function Main({ cards, ...props }) {
   // console.log(cards)
 
   return (
-      <main className="main page__main">
+      <main className={`main page__main ${props.isLoaded ? '' : 'main_disable'}`}>
         <section className="profile main__profile">
           <div onClick={props.onEditAvatar} className="profile__overlay">
             <img src={currentUser.avatar} alt="аватар пользователя" className="profile__avatar"/>
