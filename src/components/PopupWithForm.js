@@ -12,7 +12,7 @@ function PopupWithForm(props) {
       <article onClick={closeByClickAtOverlay} className={`pop-up pop-up_content_${props.name} ${props.isOpen && 'pop-up_opened'}`}>
         <div className="pop-up__background">
           <h2 className="pop-up__title">{props.title}</h2>
-          <form className="form" name={props.name}>
+          <form className="form" name={props.name} onSubmit={props.onSubmit}>
             {props.children}
             <button type="submit" className="form__submit-button" name="submitButton">{props.buttonText}</button>
           </form>

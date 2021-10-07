@@ -46,6 +46,14 @@ function App() {
     setIsDeleterPopupOpen(true);
   }
 
+  const  handleUpdateUser = (userInfo) => {
+    api.setUserInfo(userInfo)
+        .then((userInfo) => {
+          setCurrentUser(userInfo)
+          closeAllPopups()
+        })
+  }
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -82,6 +90,7 @@ function App() {
           <EditProfilePopup
               isOpen={isEditProfilePopupOpen}
               onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
           />
           <PopupWithForm
               isOpen={isAddPlacePopupOpen}
