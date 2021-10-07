@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "./Header";
-import Main from "./Main";
+import Main from "./main/Main";
 import Footer from "./Footer";
-import ImagePopup from "./ImagePopup";
-import PopupWithForm from "./PopupWithForm";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
+import ImagePopup from "./popups/ImagePopup";
+import PopupWithForm from "./popups/PopupWithForm";
+import EditProfilePopup from "./popups/EditProfilePopup";
+import EditAvatarPopup from "./popups/EditAvatarPopup";
+import AddPlacePopup from "./popups/AddPlacePopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
@@ -16,12 +16,17 @@ function App() {
       [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false),
       [isDeleterPopupOpen, setIsDeleterPopupOpen] = React.useState(false),
       [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}),
-      [currentUser, setCurrentUser] = React.useState({});
+      [currentUser, setCurrentUser] = React.useState({}),
+      [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getUserInfo()
-        .then(userInfo => {
-          setCurrentUser(userInfo)
+    Promise.all([
+        api.getUserInfo(),
+        api.getInitialCards()
+    ])
+        .then(([userInfo, cards]) => {
+          setCurrentUser(userInfo);
+          setCards(cards);
         })
         .catch(err => {
           console.log(err)
@@ -54,6 +59,9 @@ function App() {
           setCurrentUser(userInfo)
           closeAllPopups()
         })
+        .catch(err => {
+          console.log(err)
+        })
   }
 
   const handleUpdateAvatar = (avatarUrl) => {
@@ -83,8 +91,6 @@ function App() {
 
     return () => document.removeEventListener('keydown', closeByEscape);
   }, [])
-
-  const [cards, setCards] = React.useState([]);
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some(like => like._id === currentUser._id);
@@ -118,17 +124,6 @@ function App() {
           console.log(err)
         })
   }
-
-  React.useEffect(() => {
-    api.getInitialCards()
-        .then(cards => {
-          setCards(cards)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-  }, [])
-
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
