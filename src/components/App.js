@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
@@ -54,6 +55,14 @@ function App() {
         })
   }
 
+  const handleUpdateAvatar = (avatarUrl) => {
+    api.setAvatar(avatarUrl)
+        .then(userInfo => {
+          setCurrentUser(userInfo);
+          closeAllPopups();
+        })
+  }
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -92,6 +101,11 @@ function App() {
               onClose={closeAllPopups}
               onUpdateUser={handleUpdateUser}
           />
+          <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+          />
           <PopupWithForm
               isOpen={isAddPlacePopupOpen}
               title={'Новое место'}
@@ -118,23 +132,6 @@ function App() {
                      id="card-link-input"
                      required/>
               <span className="form__input-error card-link-input-error"/>
-            </label>
-          </PopupWithForm>
-          <PopupWithForm
-              isOpen={isEditAvatarPopupOpen}
-              title={'Обновить аватар'}
-              name={'avatar'}
-              buttonText={'Сохранить'}
-              onClose={closeAllPopups}
-          >
-            <label htmlFor="card-link-input" className="form__field">
-              <input type="url"
-                     className="form__input"
-                     placeholder="Ссылка на картинку"
-                     name="avatar"
-                     id="profile-avatar-link-input"
-                     required/>
-              <span className="form__input-error profile-avatar-link-input-error"/>
             </label>
           </PopupWithForm>
           <PopupWithForm
