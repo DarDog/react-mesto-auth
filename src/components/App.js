@@ -6,6 +6,7 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
@@ -107,6 +108,17 @@ function App() {
         })
   }
 
+  const handleAddPlaceSubmit = (card) => {
+    api.setCard(card)
+        .then(newCard => {
+          setCards([newCard, ...cards]);
+          closeAllPopups();
+        })
+        .catch(err => {
+          console.log(err)
+        })
+  }
+
   React.useEffect(() => {
     api.getInitialCards()
         .then(cards => {
@@ -143,34 +155,11 @@ function App() {
               onClose={closeAllPopups}
               onUpdateAvatar={handleUpdateAvatar}
           />
-          <PopupWithForm
+          <AddPlacePopup
               isOpen={isAddPlacePopupOpen}
-              title={'Новое место'}
-              name={'add'}
-              buttonText={'Создать'}
               onClose={closeAllPopups}
-          >
-            <label htmlFor="card-name-input" className="form__field">
-              <input type="text"
-                     className="form__input"
-                     placeholder="Название"
-                     name="name"
-                     id="card-name-input"
-                     required
-                     minLength="2"
-                     maxLength="30"/>
-              <span className="form__input-error card-name-input-error"/>
-            </label>
-            <label htmlFor="card-link-input" className="form__field">
-              <input type="url"
-                     className="form__input"
-                     placeholder="Ссылка на картинку"
-                     name="link"
-                     id="card-link-input"
-                     required/>
-              <span className="form__input-error card-link-input-error"/>
-            </label>
-          </PopupWithForm>
+              onAddCard={handleAddPlaceSubmit}
+          />
           <PopupWithForm
               isOpen={isDeleterPopupOpen}
               title={'Вы уверены?'}
