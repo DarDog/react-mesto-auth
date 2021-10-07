@@ -23,7 +23,7 @@ class Api {
         });
   }
 
-  sendUserInfo(userInfo) {
+  setUserInfo(userInfo) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headersContent,

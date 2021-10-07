@@ -4,6 +4,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
+import EditProfilePopup from "./EditProfilePopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
@@ -45,6 +46,14 @@ function App() {
     setIsDeleterPopupOpen(true);
   }
 
+  const  handleUpdateUser = (userInfo) => {
+    api.setUserInfo(userInfo)
+        .then((userInfo) => {
+          setCurrentUser(userInfo)
+          closeAllPopups()
+        })
+  }
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -78,36 +87,11 @@ function App() {
               onCardClick={handleCardClick}
           />
           <Footer/>
-          <PopupWithForm
+          <EditProfilePopup
               isOpen={isEditProfilePopupOpen}
-              title={'Редактировать профиль'}
-              name={'edit'}
-              buttonText={'Сохранить'}
               onClose={closeAllPopups}
-          >
-            <label htmlFor="name-input" className="form__field">
-              <input type="text"
-                     className="form__input"
-                     placeholder="Введите ваше имя"
-                     name="name"
-                     id="name-input"
-                     required
-                     minLength="2"
-                     maxLength="40"/>
-              <span className="form__input-error name-input-error"/>
-            </label>
-            <label htmlFor="description-input" className="form__field">
-              <input type="text"
-                     className="form__input"
-                     placeholder="Расскажите о себе"
-                     name="about"
-                     id="description-input"
-                     required
-                     minLength="2"
-                     maxLength="200"/>
-              <span className="form__input-error description-input-error"/>
-            </label>
-          </PopupWithForm>
+              onUpdateUser={handleUpdateUser}
+          />
           <PopupWithForm
               isOpen={isAddPlacePopupOpen}
               title={'Новое место'}
