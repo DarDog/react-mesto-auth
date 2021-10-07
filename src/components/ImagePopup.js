@@ -1,7 +1,7 @@
 import React from "react";
 
 function ImagePopup({card, ...props}) {
-
+  console.log(card)
 
   const closeByClickAtOverlay = (e) => {
     if (e.target.classList.contains('pop-up')) {
