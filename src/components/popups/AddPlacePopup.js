@@ -12,25 +12,22 @@ function AddPlacePopup(props) {
       [isFormValid, setIsFormValid] = React.useState(false),
       [submitButtonText, setSubmitButtonText] = React.useState('Создать');
 
-  const titleInputRef = React.useRef(''),
-      linkInputRef = React.useRef('');
-
   const handleChangeName = (e) => {
     setName(e.target.value);
-    handleTitleInputValid(titleInputRef);
+    handleTitleInputValid(e);
     handleFormValid();
   }
 
   const handleChangeUrl = (e) => {
     setLink(e.target.value);
-    handleLinkInputValid(linkInputRef);
+    handleLinkInputValid(e);
     handleFormValid();
   }
 
   const handleTitleInputValid = (input) => {
-    if (!input.current.validity.valid) {
+    if (!input.target.validity.valid) {
       setIsTitleValid(false);
-      setTitleErrorMassage(input.current.validationMessage);
+      setTitleErrorMassage(input.target.validationMessage);
     } else {
       setIsTitleValid(true);
       setTitleErrorMassage('');
@@ -38,9 +35,9 @@ function AddPlacePopup(props) {
   }
 
   const handleLinkInputValid = (input) => {
-    if (!input.current.validity.valid) {
+    if (!input.target.validity.valid) {
       setIsLinkValid(false);
-      setLinkErrorMassage(input.current.validationMessage);
+      setLinkErrorMassage(input.target.validationMessage);
     } else {
       setIsLinkValid(true);
       setLinkErrorMassage('');
@@ -48,7 +45,7 @@ function AddPlacePopup(props) {
   }
 
   const handleFormValid = () => {
-    if (!titleInputRef.current.validity.valid || !linkInputRef.current.validity.valid) {
+    if (!isTitleValid || !isLinkValid) {
       setIsFormValid(false);
     } else {
       setIsFormValid(true)
@@ -88,8 +85,7 @@ function AddPlacePopup(props) {
                  minLength="2"
                  maxLength="30"
                  onChange={handleChangeName}
-                 value={name}
-                 ref={titleInputRef}
+                 value={name || ''}
           />
           <FormErrors isValid={isTitleValid} errorMassage={titleErrorMassage}/>
         </label>
@@ -101,8 +97,7 @@ function AddPlacePopup(props) {
                  id="card-link-input"
                  required
                  onChange={handleChangeUrl}
-                 value={link}
-                 ref={linkInputRef}
+                 value={link || ''}
           />
           <FormErrors isValid={isLinkValid} errorMassage={linkErrorMassage}/>
         </label>
