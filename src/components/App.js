@@ -76,19 +76,23 @@ function App() {
         })
         .finally(() => {
           closeAllPopups();
-          buttonLoadStatus('Сохранить')
+          buttonLoadStatus('Сохранить');
         })
   }
 
-  const handleUpdateAvatar = (avatarUrl) => {
+  const handleUpdateAvatar = (avatarUrl, buttonLoadStatus) => {
+    buttonLoadStatus('Сохраняется...')
     api.setAvatar(avatarUrl)
         .then(userInfo => {
           setCurrentUser(userInfo);
-          closeAllPopups();
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
+        })
+        .finally(() => {
+          closeAllPopups();
+          buttonLoadStatus('Сохранить');
         })
   }
 
@@ -108,7 +112,7 @@ function App() {
   React.useEffect(() => {
     const closeByEscape = (e) => {
       if (e.key === 'Escape') {
-        closeAllPopups()
+        closeAllPopups();
       }
     }
 
