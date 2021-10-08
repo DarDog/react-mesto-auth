@@ -69,13 +69,13 @@ function App() {
     api.setUserInfo(userInfo)
         .then((userInfo) => {
           setCurrentUser(userInfo);
+          closeAllPopups();
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
         })
         .finally(() => {
-          closeAllPopups();
           buttonLoadStatus('Сохранить');
         })
   }
@@ -85,13 +85,13 @@ function App() {
     api.setAvatar(avatarUrl)
         .then(userInfo => {
           setCurrentUser(userInfo);
+          closeAllPopups();
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
         })
         .finally(() => {
-          closeAllPopups();
           buttonLoadStatus('Сохранить');
         })
   }
@@ -156,13 +156,13 @@ function App() {
     api.setCard(card)
         .then(newCard => {
           setCards([newCard, ...cards]);
+          closeAllPopups();
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
         })
         .finally(() => {
-          closeAllPopups();
           buttonLoadStatus('Создать');
         })
   }
