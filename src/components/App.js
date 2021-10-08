@@ -3,7 +3,6 @@ import Header from "./Header";
 import Main from "./main/Main";
 import Footer from "./Footer";
 import ImagePopup from "./popups/ImagePopup";
-import PopupWithForm from "./popups/PopupWithForm";
 import EditProfilePopup from "./popups/EditProfilePopup";
 import EditAvatarPopup from "./popups/EditAvatarPopup";
 import AddPlacePopup from "./popups/AddPlacePopup";
@@ -11,6 +10,7 @@ import ErrorPopup from "./popups/ErrorPopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import Spinner from "./Spinner";
+import ConfirmDeletePopup from "./popups/ConfirmeDeletePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
@@ -21,6 +21,7 @@ function App() {
       [isPageLoaded, setIsPageLoaded] = React.useState(false),
       [errorMassage, setErrorMassage] = React.useState(''),
       [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}),
+      [deletingCard, setDeletingCard] = React.useState({}),
       [currentUser, setCurrentUser] = React.useState({}),
       [cards, setCards] = React.useState([]);
 
@@ -62,9 +63,6 @@ function App() {
     setSelectedCard(card)
   }
 
-  const handleDeleterClick = () => {
-    setIsDeleterPopupOpen(true);
-  }
 
   const  handleUpdateUser = (userInfo) => {
     api.setUserInfo(userInfo)
@@ -99,6 +97,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsDeleterPopupOpen(false);
+    setIsErrorPopupOpen(false)
     setSelectedCard({name: '', link: ''})
   }
 
@@ -127,10 +126,16 @@ function App() {
         })
   }
 
+  const handleCardDeleteClick = (card) => {
+    setIsDeleterPopupOpen(true);
+    setDeletingCard(card);
+  }
+
   const handleCardDelete = (card) => {
     api.deleteCard(card._id)
         .then(() => {
           setCards((state) => state.filter((c) => c._id === card._id ? c.remove : c))
+          closeAllPopups();
         })
         .catch(err => {
           setErrorMassage(err);
@@ -160,11 +165,10 @@ function App() {
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
               onEditAvatar={handleEditAvatarClick}
-              onCardDeleter={handleDeleterClick}
               onCardClick={handleCardClick}
               cards={cards}
               onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardDelete={handleCardDeleteClick}
               isLoaded={isPageLoaded}
           />
           <Footer/>
@@ -189,23 +193,12 @@ function App() {
               errorMassage={errorMassage}
               onAccessError={handleErrorAccess}
           />
-          <PopupWithForm
+          <ConfirmDeletePopup
               isOpen={isDeleterPopupOpen}
-              title={'Вы уверены?'}
-              name={'delete'}
-              buttonText={'ДА'}
               onClose={closeAllPopups}
-          >
-            <label htmlFor="card-link-input" className="form__field">
-              <input type="url"
-                     className="form__input"
-                     placeholder="Ссылка на картинку"
-                     name="avatar"
-                     id="profile-avatar-link-input"
-                     required/>
-              <span className="form__input-error profile-avatar-link-input-error"/>
-            </label>
-          </PopupWithForm>
+              onConfirmDelete={handleCardDelete}
+              card={deletingCard}
+          />
           <ImagePopup
               card={selectedCard}
               onClose={closeAllPopups}
