@@ -64,27 +64,35 @@ function App() {
   }
 
 
-  const  handleUpdateUser = (userInfo) => {
+  const  handleUpdateUser = (userInfo, buttonLoadStatus) => {
+    buttonLoadStatus('Сохраняется...')
     api.setUserInfo(userInfo)
         .then((userInfo) => {
-          setCurrentUser(userInfo)
-          closeAllPopups()
+          setCurrentUser(userInfo);
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
+        })
+        .finally(() => {
+          closeAllPopups();
+          buttonLoadStatus('Сохранить');
         })
   }
 
-  const handleUpdateAvatar = (avatarUrl) => {
+  const handleUpdateAvatar = (avatarUrl, buttonLoadStatus) => {
+    buttonLoadStatus('Сохраняется...')
     api.setAvatar(avatarUrl)
         .then(userInfo => {
           setCurrentUser(userInfo);
-          closeAllPopups();
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
+        })
+        .finally(() => {
+          closeAllPopups();
+          buttonLoadStatus('Сохранить');
         })
   }
 
@@ -104,7 +112,7 @@ function App() {
   React.useEffect(() => {
     const closeByEscape = (e) => {
       if (e.key === 'Escape') {
-        closeAllPopups()
+        closeAllPopups();
       }
     }
 
@@ -143,15 +151,19 @@ function App() {
         })
   }
 
-  const handleAddPlaceSubmit = (card) => {
+  const handleAddPlaceSubmit = (card, buttonLoadStatus) => {
+    buttonLoadStatus('Создается..')
     api.setCard(card)
         .then(newCard => {
           setCards([newCard, ...cards]);
-          closeAllPopups();
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
+        })
+        .finally(() => {
+          closeAllPopups();
+          buttonLoadStatus('Создать');
         })
   }
 

@@ -16,6 +16,7 @@ function ErrorPopup(props) {
           buttonText={'ОК'}
           onClose={props.onClose}
           onSubmit={handleSubmit}
+          isValid={true}
       >
         <p className={'error_massage'}>{props.errorMassage}</p>
       </PopupWithForm>
