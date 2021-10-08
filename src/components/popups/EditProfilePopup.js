@@ -13,27 +13,23 @@ function EditProfilePopup(props) {
       [isFormValid, setIsFormValid] = React.useState(false),
       [submitButtonText, setSubmitButtonText] = React.useState('Сохранить')
 
-  const nameInputRef = React.useRef(''),
-      descriptionInputRef = React.useRef('');
-
   const currentUser = React.useContext(CurrentUserContext);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
-    handleNameInputValid(nameInputRef);
-    handleFormValid();
+    handleNameInputValid(e);
   }
 
   const handleChangeDescription = (e) => {
     setDescription(e.target.value);
-    handleDescriptionInputValid(descriptionInputRef);
-    handleFormValid();
+    handleDescriptionInputValid(e);
   }
 
   const handleNameInputValid = (input) => {
-    if (!input.current.validity.valid) {
+    if (!input.target.validity.valid) {
       setIsNameValid(false);
-      setNameErrorMassage(input.current.validationMessage);
+      console.log(isNameValid)
+      setNameErrorMassage(input.target.validationMessage);
     } else {
       setIsNameValid(true);
       setNameErrorMassage('');
@@ -41,20 +37,12 @@ function EditProfilePopup(props) {
   }
 
   const handleDescriptionInputValid = (input) => {
-    if (!input.current.validity.valid) {
+    if (!input.target.validity.valid) {
       setIsDescriptionValid(false);
-      setDescriptionErrorMassage(input.current.validationMessage);
+      setDescriptionErrorMassage(input.target.validationMessage);
     } else {
       setIsDescriptionValid(true);
       setNameErrorMassage('');
-    }
-  }
-
-  const handleFormValid = () => {
-    if (!nameInputRef.current.validity.valid || !descriptionInputRef.current.validity.valid) {
-      setIsFormValid(false);
-    } else {
-      setIsFormValid(true)
     }
   }
 
@@ -70,9 +58,19 @@ function EditProfilePopup(props) {
   }
 
   React.useEffect(() => {
+    if (!isNameValid || !isDescriptionValid) {
+      setIsFormValid(false);
+    } else {
+      setIsFormValid(true)
+    }
+  }, [isNameValid, isDescriptionValid, props.isOpen])
+
+  React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser])
+    setIsNameValid(true);
+    setIsDescriptionValid(true);
+  }, [currentUser, props.isOpen])
 
   return (
       <PopupWithForm
@@ -92,9 +90,8 @@ function EditProfilePopup(props) {
                  required
                  minLength="2"
                  maxLength="40"
-                 value={name}
+                 value={name || ''}
                  onChange={handleChangeName}
-                 ref={nameInputRef}
           />
           <FormErrors isValid={isNameValid} errorMassage={nameErrorMassage} />
         </label>
@@ -107,9 +104,8 @@ function EditProfilePopup(props) {
                  required
                  minLength="2"
                  maxLength="200"
-                 value={description}
+                 value={description || ''}
                  onChange={handleChangeDescription}
-                 ref={descriptionInputRef}
           />
           <FormErrors isValid={isDescriptionValid} errorMassage={descriptionErrorMassage} />
         </label>

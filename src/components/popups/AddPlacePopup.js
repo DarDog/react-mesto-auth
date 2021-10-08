@@ -15,13 +15,11 @@ function AddPlacePopup(props) {
   const handleChangeName = (e) => {
     setName(e.target.value);
     handleTitleInputValid(e);
-    handleFormValid();
   }
 
   const handleChangeUrl = (e) => {
     setLink(e.target.value);
     handleLinkInputValid(e);
-    handleFormValid();
   }
 
   const handleTitleInputValid = (input) => {
@@ -44,13 +42,13 @@ function AddPlacePopup(props) {
     }
   }
 
-  const handleFormValid = () => {
+  React.useEffect(() => {
     if (!isTitleValid || !isLinkValid) {
       setIsFormValid(false);
     } else {
       setIsFormValid(true)
     }
-  }
+  }, [isTitleValid, isLinkValid, props.isOpen])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,7 +59,9 @@ function AddPlacePopup(props) {
     }, setSubmitButtonText)
 
     setLink('')
+    setIsLinkValid(false)
     setName('')
+    setIsTitleValid(false)
     setIsFormValid(false)
   }
 
