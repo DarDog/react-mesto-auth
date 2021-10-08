@@ -11,7 +11,7 @@ function EditProfilePopup(props) {
       [isDescriptionValid, setIsDescriptionValid] = React.useState(false),
       [descriptionErrorMassage, setDescriptionErrorMassage] = React.useState(''),
       [isFormValid, setIsFormValid] = React.useState(false),
-      [submitButtonText, setSubbmitBittonText] = React.useState('Сохранить')
+      [submitButtonText, setSubmitButtonText] = React.useState('Сохранить')
 
   const nameInputRef = React.useRef(''),
       descriptionInputRef = React.useRef('');
@@ -64,7 +64,7 @@ function EditProfilePopup(props) {
     props.onUpdateUser({
       name,
       about: description
-    }, setSubbmitBittonText);
+    }, setSubmitButtonText);
 
     setIsFormValid(false)
   }

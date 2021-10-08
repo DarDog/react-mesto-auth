@@ -147,15 +147,19 @@ function App() {
         })
   }
 
-  const handleAddPlaceSubmit = (card) => {
+  const handleAddPlaceSubmit = (card, buttonLoadStatus) => {
+    buttonLoadStatus('Создается..')
     api.setCard(card)
         .then(newCard => {
           setCards([newCard, ...cards]);
-          closeAllPopups();
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
+        })
+        .finally(() => {
+          closeAllPopups();
+          buttonLoadStatus('Создать');
         })
   }
 
