@@ -16,6 +16,7 @@ function ConfirmDeletePopup(props) {
           buttonText={'ДА'}
           onClose={props.onClose}
           onSubmit={handleSubmit}
+          isValid={true}
       />
   )
 }
