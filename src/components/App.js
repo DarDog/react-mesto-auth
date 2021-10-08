@@ -64,15 +64,19 @@ function App() {
   }
 
 
-  const  handleUpdateUser = (userInfo) => {
+  const  handleUpdateUser = (userInfo, buttonLoadStatus) => {
+    buttonLoadStatus('Сохраняется...')
     api.setUserInfo(userInfo)
         .then((userInfo) => {
-          setCurrentUser(userInfo)
-          closeAllPopups()
+          setCurrentUser(userInfo);
         })
         .catch(err => {
           setErrorMassage(err);
           setIsErrorPopupOpen(true);
+        })
+        .finally(() => {
+          closeAllPopups();
+          buttonLoadStatus('Сохранить')
         })
   }
 

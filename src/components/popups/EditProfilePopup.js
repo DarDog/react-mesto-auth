@@ -1,19 +1,61 @@
 import React from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
+import FormErrors from "./FormErrors";
 
 function EditProfilePopup(props) {
   const [name, setName] = React.useState(''),
-      [description, setDescription] = React.useState('');
+      [description, setDescription] = React.useState(''),
+      [isNameValid, setIsNameValid] = React.useState(false),
+      [nameErrorMassage, setNameErrorMassage] = React.useState(''),
+      [isDescriptionValid, setIsDescriptionValid] = React.useState(false),
+      [descriptionErrorMassage, setDescriptionErrorMassage] = React.useState(''),
+      [isFormValid, setIsFormValid] = React.useState(false),
+      [submitButtonText, setSubbmitBittonText] = React.useState('Сохранить')
+
+  const nameInputRef = React.useRef(''),
+      descriptionInputRef = React.useRef('');
 
   const currentUser = React.useContext(CurrentUserContext);
 
   const handleChangeName = (e) => {
-    setName(e.target.value)
+    setName(e.target.value);
+    handleNameInputValid(nameInputRef);
+    handleFormValid();
   }
 
   const handleChangeDescription = (e) => {
-    setDescription(e.target.value)
+    setDescription(e.target.value);
+    handleDescriptionInputValid(descriptionInputRef);
+    handleFormValid();
+  }
+
+  const handleNameInputValid = (input) => {
+    if (!input.current.validity.valid) {
+      setIsNameValid(false);
+      setNameErrorMassage(input.current.validationMessage);
+    } else {
+      setIsNameValid(true);
+      setNameErrorMassage('');
+    }
+  }
+
+  const handleDescriptionInputValid = (input) => {
+    if (!input.current.validity.valid) {
+      setIsDescriptionValid(false);
+      setDescriptionErrorMassage(input.current.validationMessage);
+    } else {
+      setIsDescriptionValid(true);
+      setNameErrorMassage('');
+    }
+  }
+
+  const handleFormValid = () => {
+    if (!nameInputRef.current.validity.valid || !descriptionInputRef.current.validity.valid) {
+      setIsFormValid(false);
+    } else {
+      setIsFormValid(true)
+    }
   }
 
   const handleSubmit = (e) => {
@@ -22,12 +64,14 @@ function EditProfilePopup(props) {
     props.onUpdateUser({
       name,
       about: description
-    })
+    }, setSubbmitBittonText);
+
+    setIsFormValid(false)
   }
 
   React.useEffect(() => {
     setName(currentUser.name);
-    setDescription(currentUser.about)
+    setDescription(currentUser.about);
   }, [currentUser])
 
   return (
@@ -35,9 +79,10 @@ function EditProfilePopup(props) {
           isOpen={props.isOpen}
           onClose={props.onClose}
           onSubmit={handleSubmit}
+          isValid={isFormValid}
           title={'Редактировать профиль'}
           name={'edit'}
-          buttonText={'Сохранить'}>
+          buttonText={submitButtonText}>
         <label htmlFor="name-input" className="form__field">
           <input type="text"
                  className="form__input"
@@ -49,8 +94,9 @@ function EditProfilePopup(props) {
                  maxLength="40"
                  value={name}
                  onChange={handleChangeName}
+                 ref={nameInputRef}
           />
-          <span className="form__input-error name-input-error"/>
+          <FormErrors isValid={isNameValid} errorMassage={nameErrorMassage} />
         </label>
         <label htmlFor="description-input" className="form__field">
           <input type="text"
@@ -63,8 +109,9 @@ function EditProfilePopup(props) {
                  maxLength="200"
                  value={description}
                  onChange={handleChangeDescription}
+                 ref={descriptionInputRef}
           />
-          <span className="form__input-error description-input-error"/>
+          <FormErrors isValid={isDescriptionValid} errorMassage={descriptionErrorMassage} />
         </label>
       </PopupWithForm>
   )
