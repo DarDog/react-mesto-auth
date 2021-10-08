@@ -1,6 +1,7 @@
 /*Основные стили*/
 @import url('./vendor/normalize.css');
 @import url('./vendor/fonts.css');
+@import url('./blocks/root/root.css');
 @import url('./blocks/page/page.css');
 /*Блок header*/
 @import url('./blocks/header/header.css');
@@ -9,7 +10,9 @@
 @import url('./blocks/header/__logo/header__logo.css');
 /*Блок main*/
 @import url('./blocks/main/main.css');
+@import url('./blocks/main/_disable/main_disable.css');
 @import url('./blocks/spinner/spinner.css');
+@import url('./blocks/spinner/_disable/spinner_disable.css');
 @import url('./blocks/spinner/_position_main/spinner_position_main.css');
 @import url('./blocks/page/__main/page__main.css');
 /*Блок profile*/
@@ -33,6 +36,7 @@
 @import url('./blocks/card/__like-button/card__like-button.css');
 @import url('./blocks/card/__like-count/card__like-count.css');
 @import url('./blocks/card/__delete-button/card__delete-button.css');
+@import url('./blocks/card/__delete-button/_visible/card__delete-button_visible.css');
 @import url('./blocks/card/__like-button/_active/card__like-button_active.css');
 /*Блок footer*/
 @import url('./blocks/footer/footer.css');
