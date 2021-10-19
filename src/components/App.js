@@ -32,7 +32,8 @@ function App(props) {
       [cards, setCards] = React.useState([]),
       [loggedIn, setLoggedIn] = React.useState(false),
       [isSuccessPopupOpen, setIsSuccessPopupOpen] = React.useState(false),
-      [isFailPopupOpen, setIsFailPopupOpen] = React.useState(false);
+      [isFailPopupOpen, setIsFailPopupOpen] = React.useState(false),
+      [userData, setUserData] = React.useState({});
 
   React.useEffect(() => {
     Promise.all([
@@ -204,9 +205,27 @@ function App(props) {
         })
   }
 
+  React.useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt')
+      auth.getUserInfo(jwt)
+          .then(data => {
+            setLoggedIn(true);
+            setUserData(data.data)
+            props.history.push('/')
+          })
+          .catch(err => {
+            console.error(err)
+          })
+    }
+  }, [])
+
   return (
       <CurrentUserContext.Provider value={currentUser}>
-        <Header loggedIn={loggedIn}/>
+        <Header
+            loggedIn={loggedIn}
+            userData={userData}
+        />
         <Switch>
           <ProtectedRoute
               exact path='/'

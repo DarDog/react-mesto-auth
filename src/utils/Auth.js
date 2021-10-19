@@ -30,18 +30,18 @@ class Auth {
         })
   }
 
-  // authorization(token) {
-  //   return fetch(`${this._BASE_URL}/users/me`, {
-  //     method: 'GET',
-  //     headers: {
-  //       "Content-type": "application/json",
-  //       "Authorization": `Bearer ${token}`
-  //     }
-  //   })
-  //       .then(res => {
-  //         this._getResponseData()
-  //       })
-  // }
+  getUserInfo(token) {
+    return fetch(`${this._BASE_URL}/users/me`, {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+        .then(res => {
+          return this._getResponseData(res)
+        })
+  }
 
 
   _getResponseData(res) {
