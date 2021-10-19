@@ -14,6 +14,8 @@ import ConfirmDeletePopup from "./popups/ConfirmeDeletePopup";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import ProtectedRoute from "./ProtectedRoute";
+import Success from "./popups/Success";
+import Fail from "./popups/Fail";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
@@ -228,6 +230,12 @@ function App() {
         />
         <ImagePopup
             card={selectedCard}
+            onClose={closeAllPopups}
+        />
+        <Success
+            onClose={closeAllPopups}
+        />
+        <Fail
             onClose={closeAllPopups}
         />
       </CurrentUserContext.Provider>

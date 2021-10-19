@@ -64,6 +64,7 @@
 @import url('./blocks/form/__submit-button/_disable/form__submit-button_disable.css');
 @import url('./blocks/error/__massage/error__massage.css');
 @import url('./blocks/display-none/display-none.css');
+@import url('./blocks/pop-up/__status-image/pop-up__status-image.css');
 /*Страницы Входа и регистрации*/
 @import url('./blocks/auth/auth.css');
 @import url('./blocks/auth/__title/auth__title.css');
