@@ -13,6 +13,7 @@ import ErrorPopup from "./popups/ErrorPopup";
 import Spinner from "./Spinner";
 import ConfirmDeletePopup from "./popups/ConfirmeDeletePopup";
 import SignIn from "./auth/SignIn";
+import SignUp from "./auth/SignUp";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
@@ -178,7 +179,7 @@ function App() {
             <SignIn/>
           </Route>
           <Route path='/sign-up'>
-
+            <SignUp/>
           </Route>
           <Route path='/home'>
             <Spinner
