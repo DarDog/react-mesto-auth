@@ -2,9 +2,9 @@
   background-color: inherit;
   color: #CCCCCC;
   border-bottom: 2px solid #CCCCCC;
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
-.form__input_type_auth:last-of-type {
-  margin-bottom: 200px;
+.form__input_type_auth:first-of-type {
+  margin-top: 0;
 }
