@@ -1,10 +1,13 @@
 import React from 'react'
 import SignPage from "./SignPage";
 
-function SignIn() {
+function SignIn(props) {
   return (
     <article className='auth'>
-      <SignPage context={{title: 'Вход', buttonName: 'Войти', formName: 'sign-in'}} />
+      <SignPage
+          context={{title: 'Вход', buttonName: 'Войти', formName: 'sign-in'}}
+          onSubmit={props.onSubmit}
+      />
     </article>
   );
 }

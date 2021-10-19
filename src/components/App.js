@@ -180,15 +180,27 @@ function App(props) {
 
   const handleRegistration = (newUserInfo) => {
     auth.setNewUser(newUserInfo.password, newUserInfo.email)
-        .then(data => {
+        .then(() => {
           setIsSuccessPopupOpen(true)
-          localStorage.setItem('token', data._id);
-          localStorage.setItem('email', data.email);
           props.history.push('/sign-in')
         })
         .catch(err => {
-          console.log(err)
+          console.error(err)
           setIsFailPopupOpen(true)
+        })
+  }
+
+  const handleAuthorization = (authUserInfo) => {
+    auth.authorization(authUserInfo.password, authUserInfo.email)
+        .then(data => {
+          if (data.token) {
+            localStorage.setItem('jwt', data.token);
+            setLoggedIn(true);
+            props.history.push('/')
+          }
+        })
+        .catch(err => {
+          console.error(err)
         })
   }
 
@@ -196,16 +208,8 @@ function App(props) {
       <CurrentUserContext.Provider value={currentUser}>
         <Header loggedIn={loggedIn}/>
         <Switch>
-          <Route path='/sign-in'>
-            <SignIn/>
-          </Route>
-          <Route path='/sign-up'>
-            <SignUp
-                onSubmit={handleRegistration}
-            />
-          </Route>
           <ProtectedRoute
-              path='/'
+              exact path='/'
               loggedIn={loggedIn}
               component={Main}
               onEditProfile={handleEditProfileClick}
@@ -217,8 +221,15 @@ function App(props) {
               onCardDelete={handleCardDeleteClick}
               isLoaded={isPageLoaded}
           />
-          <Route exact path='/'>
-            {!loggedIn ? <Redirect to='/sign-in'/> : <Redirect to='/'/>}
+          <Route path='/sign-in'>
+            <SignIn
+                onSubmit={handleAuthorization}
+            />
+          </Route>
+          <Route path='/sign-up'>
+            <SignUp
+                onSubmit={handleRegistration}
+            />
           </Route>
         </Switch>
         <Footer/>
