@@ -6,4 +6,9 @@
   text-align: center;
   text-decoration: none;
   margin-top: 15px;
+  transition: opacity .3s;
+}
+
+.auth__link {
+  opacity: .6;
 }

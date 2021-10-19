@@ -14,6 +14,13 @@
 @import url('./blocks/nav/__link/_hidden/header__nav-link_hidden.css');
 @import url('./blocks/nav/__email/header__email.css');
 @import url('./blocks/nav/__nav-button/header__nav-button.css');
+@import url('./blocks/header/__button/header__button.css');
+@import url('./blocks/header/__button/_hidden/header__button_hidden.css');
+@import url('./blocks/header/__button/_active/header__button_active.css');
+@import url('./blocks/menu/menu.css');
+@import url('./blocks/menu/__nav/menu__nav.css');
+@import url('./blocks/menu/__paragraph/menu__paragraph.css');
+@import url('./blocks/menu/__button/menu__button.css');
 /*Блок main*/
 @import url('./blocks/main/main.css');
 @import url('./blocks/main/_disable/main_disable.css');
