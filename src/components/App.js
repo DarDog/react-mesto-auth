@@ -1,4 +1,8 @@
 import React from "react";
+import {api} from "../utils/Api";
+import {auth} from "../utils/Auth";
+import {CurrentUserContext} from "../context/CurrentUserContext";
+import {Route, Switch, useHistory} from 'react-router-dom'
 import Header from "./Header";
 import Main from "./main/Main";
 import Footer from "./Footer";
@@ -7,12 +11,14 @@ import EditProfilePopup from "./popups/EditProfilePopup";
 import EditAvatarPopup from "./popups/EditAvatarPopup";
 import AddPlacePopup from "./popups/AddPlacePopup";
 import ErrorPopup from "./popups/ErrorPopup";
-import { api } from "../utils/Api";
-import { CurrentUserContext } from "../context/CurrentUserContext";
-import Spinner from "./Spinner";
 import ConfirmDeletePopup from "./popups/ConfirmeDeletePopup";
+import SignIn from "./auth/SignIn";
+import SignUp from "./auth/SignUp";
+import ProtectedRoute from "./ProtectedRoute";
+import Success from "./popups/Success";
+import Fail from "./popups/Fail";
 
-function App() {
+function App(props) {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
       [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false),
       [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false),
@@ -23,12 +29,18 @@ function App() {
       [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}),
       [deletingCard, setDeletingCard] = React.useState({}),
       [currentUser, setCurrentUser] = React.useState({}),
-      [cards, setCards] = React.useState([]);
+      [cards, setCards] = React.useState([]),
+      [loggedIn, setLoggedIn] = React.useState(false),
+      [isSuccessPopupOpen, setIsSuccessPopupOpen] = React.useState(false),
+      [isFailPopupOpen, setIsFailPopupOpen] = React.useState(false),
+      [userData, setUserData] = React.useState({});
+
+  const history = useHistory();
 
   React.useEffect(() => {
     Promise.all([
-        api.getUserInfo(),
-        api.getInitialCards()
+      api.getUserInfo(),
+      api.getInitialCards()
     ])
         .then(([userInfo, cards]) => {
           setCurrentUser(userInfo);
@@ -64,7 +76,7 @@ function App() {
   }
 
 
-  const  handleUpdateUser = (userInfo, buttonLoadStatus) => {
+  const handleUpdateUser = (userInfo, buttonLoadStatus) => {
     buttonLoadStatus('Сохраняется...')
     api.setUserInfo(userInfo)
         .then((userInfo) => {
@@ -105,8 +117,10 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsDeleterPopupOpen(false);
-    setIsErrorPopupOpen(false)
-    setSelectedCard({name: '', link: ''})
+    setIsErrorPopupOpen(false);
+    setIsSuccessPopupOpen(false);
+    setIsFailPopupOpen(false);
+    setSelectedCard({name: '', link: ''});
   }
 
   React.useEffect(() => {
@@ -167,13 +181,58 @@ function App() {
         })
   }
 
+  const handleRegistration = (newUserInfo) => {
+    auth.setNewUser(newUserInfo.password, newUserInfo.email)
+        .then(() => {
+          setIsSuccessPopupOpen(true)
+          history.push('/sign-in')
+        })
+        .catch(err => {
+          console.error(err)
+          setIsFailPopupOpen(true)
+        })
+  }
+
+  const handleAuthorization = (authUserInfo) => {
+    auth.authorization(authUserInfo.password, authUserInfo.email)
+        .then(data => {
+          if (data.token) {
+            localStorage.setItem('jwt', data.token);
+            setLoggedIn(true);
+            history.push('/')
+          }
+        })
+        .catch(err => {
+          console.error(err)
+        })
+  }
+
+  React.useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt')
+      auth.getUserInfo(jwt)
+          .then(data => {
+            setLoggedIn(true);
+            setUserData(data.data)
+            history.push('/')
+          })
+          .catch(err => {
+            console.error(err)
+          })
+    }
+  }, [loggedIn, history])
+
   return (
       <CurrentUserContext.Provider value={currentUser}>
-          <Header/>
-          <Spinner
-              isLoaded={isPageLoaded}
-          />
-          <Main
+        <Header
+            loggedIn={loggedIn}
+            userData={userData}
+        />
+        <Switch>
+          <ProtectedRoute
+              exact path='/'
+              loggedIn={loggedIn}
+              component={Main}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
               onEditAvatar={handleEditAvatarClick}
@@ -183,38 +242,57 @@ function App() {
               onCardDelete={handleCardDeleteClick}
               isLoaded={isPageLoaded}
           />
-          <Footer/>
-          <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-          />
-          <EditAvatarPopup
-              isOpen={isEditAvatarPopupOpen}
-              onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
-          />
-          <AddPlacePopup
-              isOpen={isAddPlacePopupOpen}
-              onClose={closeAllPopups}
-              onAddCard={handleAddPlaceSubmit}
-          />
-          <ErrorPopup
-              isOpen={isErrorPopupOpen}
-              onClose={closeAllPopups}
-              errorMassage={errorMassage}
-              onAccessError={handleErrorAccess}
-          />
-          <ConfirmDeletePopup
-              isOpen={isDeleterPopupOpen}
-              onClose={closeAllPopups}
-              onConfirmDelete={handleCardDelete}
-              card={deletingCard}
-          />
-          <ImagePopup
-              card={selectedCard}
-              onClose={closeAllPopups}
-          />
+          <Route path='/sign-in'>
+            <SignIn
+                onSubmit={handleAuthorization}
+            />
+          </Route>
+          <Route path='/sign-up'>
+            <SignUp
+                onSubmit={handleRegistration}
+            />
+          </Route>
+        </Switch>
+        <Footer/>
+        <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+        />
+        <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+        />
+        <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddCard={handleAddPlaceSubmit}
+        />
+        <ErrorPopup
+            isOpen={isErrorPopupOpen}
+            onClose={closeAllPopups}
+            errorMassage={errorMassage}
+            onAccessError={handleErrorAccess}
+        />
+        <ConfirmDeletePopup
+            isOpen={isDeleterPopupOpen}
+            onClose={closeAllPopups}
+            onConfirmDelete={handleCardDelete}
+            card={deletingCard}
+        />
+        <ImagePopup
+            card={selectedCard}
+            onClose={closeAllPopups}
+        />
+        <Success
+            onClose={closeAllPopups}
+            isOpen={isSuccessPopupOpen}
+        />
+        <Fail
+            onClose={closeAllPopups}
+            isOpen={isFailPopupOpen}
+        />
       </CurrentUserContext.Provider>
   );
 }
