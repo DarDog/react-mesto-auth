@@ -1,4 +1,7 @@
 import React from "react";
+import {api} from "../utils/Api";
+import {CurrentUserContext} from "../context/CurrentUserContext";
+import {Route, Switch, Redirect} from 'react-router-dom'
 import Header from "./Header";
 import Main from "./main/Main";
 import Footer from "./Footer";
@@ -7,10 +10,9 @@ import EditProfilePopup from "./popups/EditProfilePopup";
 import EditAvatarPopup from "./popups/EditAvatarPopup";
 import AddPlacePopup from "./popups/AddPlacePopup";
 import ErrorPopup from "./popups/ErrorPopup";
-import { api } from "../utils/Api";
-import { CurrentUserContext } from "../context/CurrentUserContext";
 import Spinner from "./Spinner";
 import ConfirmDeletePopup from "./popups/ConfirmeDeletePopup";
+import SignIn from "./auth/SignIn";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
@@ -23,12 +25,13 @@ function App() {
       [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}),
       [deletingCard, setDeletingCard] = React.useState({}),
       [currentUser, setCurrentUser] = React.useState({}),
-      [cards, setCards] = React.useState([]);
+      [cards, setCards] = React.useState([]),
+      [loggedIn, setLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
     Promise.all([
-        api.getUserInfo(),
-        api.getInitialCards()
+      api.getUserInfo(),
+      api.getInitialCards()
     ])
         .then(([userInfo, cards]) => {
           setCurrentUser(userInfo);
@@ -64,7 +67,7 @@ function App() {
   }
 
 
-  const  handleUpdateUser = (userInfo, buttonLoadStatus) => {
+  const handleUpdateUser = (userInfo, buttonLoadStatus) => {
     buttonLoadStatus('Сохраняется...')
     api.setUserInfo(userInfo)
         .then((userInfo) => {
@@ -169,52 +172,65 @@ function App() {
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
-          <Header/>
-          <Spinner
-              isLoaded={isPageLoaded}
-          />
-          <Main
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onEditAvatar={handleEditAvatarClick}
-              onCardClick={handleCardClick}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDeleteClick}
-              isLoaded={isPageLoaded}
-          />
-          <Footer/>
-          <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-          />
-          <EditAvatarPopup
-              isOpen={isEditAvatarPopupOpen}
-              onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
-          />
-          <AddPlacePopup
-              isOpen={isAddPlacePopupOpen}
-              onClose={closeAllPopups}
-              onAddCard={handleAddPlaceSubmit}
-          />
-          <ErrorPopup
-              isOpen={isErrorPopupOpen}
-              onClose={closeAllPopups}
-              errorMassage={errorMassage}
-              onAccessError={handleErrorAccess}
-          />
-          <ConfirmDeletePopup
-              isOpen={isDeleterPopupOpen}
-              onClose={closeAllPopups}
-              onConfirmDelete={handleCardDelete}
-              card={deletingCard}
-          />
-          <ImagePopup
-              card={selectedCard}
-              onClose={closeAllPopups}
-          />
+        <Header/>
+        <Switch>
+          <Route path='/sign-in'>
+            <SignIn/>
+          </Route>
+          <Route path='/sign-up'>
+
+          </Route>
+          <Route path='/home'>
+            <Spinner
+                isLoaded={isPageLoaded}
+            />
+            <Main
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDeleteClick}
+                isLoaded={isPageLoaded}
+            />
+            <Footer/>
+            <EditProfilePopup
+                isOpen={isEditProfilePopupOpen}
+                onClose={closeAllPopups}
+                onUpdateUser={handleUpdateUser}
+            />
+            <EditAvatarPopup
+                isOpen={isEditAvatarPopupOpen}
+                onClose={closeAllPopups}
+                onUpdateAvatar={handleUpdateAvatar}
+            />
+            <AddPlacePopup
+                isOpen={isAddPlacePopupOpen}
+                onClose={closeAllPopups}
+                onAddCard={handleAddPlaceSubmit}
+            />
+            <ErrorPopup
+                isOpen={isErrorPopupOpen}
+                onClose={closeAllPopups}
+                errorMassage={errorMassage}
+                onAccessError={handleErrorAccess}
+            />
+            <ConfirmDeletePopup
+                isOpen={isDeleterPopupOpen}
+                onClose={closeAllPopups}
+                onConfirmDelete={handleCardDelete}
+                card={deletingCard}
+            />
+            <ImagePopup
+                card={selectedCard}
+                onClose={closeAllPopups}
+            />
+          </Route>
+          <Route exact path='/'>
+            {loggedIn ? <Redirect to='/home'/> : <Redirect to='/sign-in'/>}
+          </Route>
+        </Switch>
       </CurrentUserContext.Provider>
   );
 }

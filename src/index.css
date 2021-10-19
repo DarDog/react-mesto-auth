@@ -62,3 +62,9 @@
 @import url('./blocks/form/__submit-button/_disable/form__submit-button_disable.css');
 @import url('./blocks/error/__massage/error__massage.css');
 @import url('./blocks/display-none/display-none.css');
+/*Страницы Входа и регистрации*/
+@import url('./blocks/auth/auth.css');
+@import url('./blocks/auth/__title/auth__title.css');
+@import url('./blocks/auth/__form/auth__form.css');
+@import url('./blocks/form/__input/_type_auth/form__input_type_auth.css');
+@import url('./blocks/form/__submit-button/_type_auth/form__submit-button_type_auth.css');
