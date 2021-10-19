@@ -8,6 +8,8 @@
 @import url('./blocks/page/__header/page__header.css');
 @import url('./blocks/logo/logo.css');
 @import url('./blocks/header/__logo/header__logo.css');
+@import url('./blocks/header/__nav-link/header__nav-link.css');
+@import url('./blocks/header/__nav-link/_hidden/header__nav-link_hidden.css');
 /*Блок main*/
 @import url('./blocks/main/main.css');
 @import url('./blocks/main/_disable/main_disable.css');
