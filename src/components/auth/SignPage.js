@@ -9,8 +9,6 @@ function SignPage({context, ...props}) {
       [passwordErrorMassage, setPasswordErrorMassage] = React.useState(''),
       [isFormValid, setIsFormValid] = React.useState(false)
 
-  console.log(login)
-
   const handleLoginChange = (e) => {
     setLogin(e.target.value);
     checkLoginValidity(e.target);
@@ -47,12 +45,21 @@ function SignPage({context, ...props}) {
     } else {
       setIsFormValid(false)
     }
-  },[login, password])
+  }, [login, password]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    props.onSubmit({
+      password: password,
+      email: login
+    })
+  }
 
   return (
       <>
         <h1 className='auth__title'>{context.title}</h1>
-        <form className='auth__form' name={context.formName} noValidate>
+        <form className='auth__form' name={context.formName} onSubmit={handleSubmit} noValidate>
           <input className='form__input form__input_type_auth'
                  minLength="6"
                  placeholder='Email'
@@ -70,8 +77,12 @@ function SignPage({context, ...props}) {
                  value={password}
                  onChange={handlePasswordChange}
           />
-          <span className={`form__input-error ${isPasswordValid || 'form__input-error_active'}`}>{passwordErrorMassage}</span>
-          <button className={`form__submit-button form__submit-button_type_auth ${isFormValid || 'form__submit-button_disable'}`} type='submit'>{context.buttonName}</button>
+          <span
+              className={`form__input-error ${isPasswordValid || 'form__input-error_active'}`}>{passwordErrorMassage}</span>
+          <button
+              className={`form__submit-button form__submit-button_type_auth ${isFormValid || 'form__submit-button_disable'}`}
+              type='submit'
+          >{context.buttonName}</button>
         </form>
       </>
   );

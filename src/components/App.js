@@ -1,7 +1,8 @@
 import React from "react";
 import {api} from "../utils/Api";
+import {auth} from "../utils/Auth";
 import {CurrentUserContext} from "../context/CurrentUserContext";
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Route, Switch, Redirect, withRouter} from 'react-router-dom'
 import Header from "./Header";
 import Main from "./main/Main";
 import Footer from "./Footer";
@@ -17,7 +18,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Success from "./popups/Success";
 import Fail from "./popups/Fail";
 
-function App() {
+function App(props) {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
       [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false),
       [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false),
@@ -29,7 +30,9 @@ function App() {
       [deletingCard, setDeletingCard] = React.useState({}),
       [currentUser, setCurrentUser] = React.useState({}),
       [cards, setCards] = React.useState([]),
-      [loggedIn, setLoggedIn] = React.useState(false);
+      [loggedIn, setLoggedIn] = React.useState(false),
+      [isSuccessPopupOpen, setIsSuccessPopupOpen] = React.useState(false),
+      [isFailPopupOpen, setIsFailPopupOpen] = React.useState(false);
 
   React.useEffect(() => {
     Promise.all([
@@ -111,8 +114,10 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsDeleterPopupOpen(false);
-    setIsErrorPopupOpen(false)
-    setSelectedCard({name: '', link: ''})
+    setIsErrorPopupOpen(false);
+    setIsSuccessPopupOpen(false);
+    setIsFailPopupOpen(false);
+    setSelectedCard({name: '', link: ''});
   }
 
   React.useEffect(() => {
@@ -173,6 +178,20 @@ function App() {
         })
   }
 
+  const handleRegistration = (newUserInfo) => {
+    auth.setNewUser(newUserInfo.password, newUserInfo.email)
+        .then(data => {
+          setIsSuccessPopupOpen(true)
+          localStorage.setItem('token', data._id);
+          localStorage.setItem('email', data.email);
+          props.history.push('/sign-in')
+        })
+        .catch(err => {
+          console.log(err)
+          setIsFailPopupOpen(true)
+        })
+  }
+
   return (
       <CurrentUserContext.Provider value={currentUser}>
         <Header loggedIn={loggedIn}/>
@@ -181,7 +200,9 @@ function App() {
             <SignIn/>
           </Route>
           <Route path='/sign-up'>
-            <SignUp/>
+            <SignUp
+                onSubmit={handleRegistration}
+            />
           </Route>
           <ProtectedRoute
               path='/'
@@ -234,12 +255,14 @@ function App() {
         />
         <Success
             onClose={closeAllPopups}
+            isOpen={isSuccessPopupOpen}
         />
         <Fail
             onClose={closeAllPopups}
+            isOpen={isFailPopupOpen}
         />
       </CurrentUserContext.Provider>
   );
 }
 
-export default App;
+export default withRouter(App);
