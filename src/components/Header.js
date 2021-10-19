@@ -1,12 +1,18 @@
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, useHistory} from 'react-router-dom';
 
 function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const history = useHistory();
 
   const handleMenuButtonClick = (e) => {
-    setIsMenuOpen(!isMenuOpen)
-    e.target.classList.toggle('header__button_active')
+    setIsMenuOpen(!isMenuOpen);
+    e.target.classList.toggle('header__button_active');
+  }
+
+  const handleExit = () => {
+    localStorage.removeItem('jwt')
+    history.push('/sign-in')
   }
 
   return (
@@ -17,7 +23,7 @@ function Header(props) {
               <p className="menu__paragraph">{props.userData.email}</p>
             </li>
             <li className="menu__item">
-              <button className="menu__button" onClick={handleMenuButtonClick}>Выйти</button>
+              <button className="menu__button" onClick={handleExit}>Выйти</button>
             </li>
           </ul>
         </article>
@@ -35,7 +41,7 @@ function Header(props) {
             <li className={`nav__item ${!props.loggedIn && 'nav__item_hidden'}`}><p
                 className='nav__paragraph'>{props.userData.email}</p></li>
             <li className={`nav__item ${!props.loggedIn && 'nav__item_hidden'}`}>
-              <button className='nav__link nav__button' type='button'>Выход</button>
+              <button className='nav__link nav__button' type='button' onClick={handleExit}>Выход</button>
             </li>
           </ul>
           <button className={`header__button ${props.loggedIn && 'header__button_hidden'}`} onClick={handleMenuButtonClick}/>
