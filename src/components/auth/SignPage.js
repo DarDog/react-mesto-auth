@@ -45,7 +45,7 @@ function SignPage({context, ...props}) {
     } else {
       setIsFormValid(false)
     }
-  }, [login, password]);
+  }, [isLoginValid, isPasswordValid]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

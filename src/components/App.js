@@ -2,7 +2,7 @@ import React from "react";
 import {api} from "../utils/Api";
 import {auth} from "../utils/Auth";
 import {CurrentUserContext} from "../context/CurrentUserContext";
-import {Route, Switch, Redirect, withRouter} from 'react-router-dom'
+import {Route, Switch, useHistory} from 'react-router-dom'
 import Header from "./Header";
 import Main from "./main/Main";
 import Footer from "./Footer";
@@ -34,6 +34,8 @@ function App(props) {
       [isSuccessPopupOpen, setIsSuccessPopupOpen] = React.useState(false),
       [isFailPopupOpen, setIsFailPopupOpen] = React.useState(false),
       [userData, setUserData] = React.useState({});
+
+  const history = useHistory();
 
   React.useEffect(() => {
     Promise.all([
@@ -183,7 +185,7 @@ function App(props) {
     auth.setNewUser(newUserInfo.password, newUserInfo.email)
         .then(() => {
           setIsSuccessPopupOpen(true)
-          props.history.push('/sign-in')
+          history.push('/sign-in')
         })
         .catch(err => {
           console.error(err)
@@ -197,7 +199,7 @@ function App(props) {
           if (data.token) {
             localStorage.setItem('jwt', data.token);
             setLoggedIn(true);
-            props.history.push('/')
+            history.push('/')
           }
         })
         .catch(err => {
@@ -212,13 +214,13 @@ function App(props) {
           .then(data => {
             setLoggedIn(true);
             setUserData(data.data)
-            props.history.push('/')
+            history.push('/')
           })
           .catch(err => {
             console.error(err)
           })
     }
-  }, [])
+  }, [loggedIn, history])
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
@@ -295,4 +297,4 @@ function App(props) {
   );
 }
 
-export default withRouter(App);
+export default App;

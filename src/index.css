@@ -10,10 +10,10 @@
 @import url('./blocks/header/__logo/header__logo.css');
 @import url('./blocks/nav/nav.css');
 @import url('./blocks/nav/__item/_hidden/nav__item_hidden.css');
-@import url('./blocks/nav/__link/header__nav-link.css');
-@import url('./blocks/nav/__link/_hidden/header__nav-link_hidden.css');
+@import url('blocks/nav/__link/nav__link.css');
+@import url('blocks/nav/__link/_hidden/nav__link_hidden.css');
 @import url('./blocks/nav/__email/header__email.css');
-@import url('./blocks/nav/__nav-button/header__nav-button.css');
+@import url('blocks/nav/__nav-button/nav__button.css');
 @import url('./blocks/header/__button/header__button.css');
 @import url('./blocks/header/__button/_hidden/header__button_hidden.css');
 @import url('./blocks/header/__button/_active/header__button_active.css');
