@@ -54,5 +54,5 @@ class Auth {
 }
 
 export const auth = new Auth({
-  baseUrl: 'https://auth.nomoreparties.co',
+  baseUrl: 'http://api.mesto.subb.nomoredomains.rocks/',
 });
