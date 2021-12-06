@@ -7,6 +7,7 @@ class Api {
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
+      credentials: 'include',
       headers: this._headersContent
     })
         .then((res) => {
@@ -16,6 +17,7 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
+      credentials: 'include',
       headers: this._headersContent
     })
         .then((res) => {
@@ -26,6 +28,7 @@ class Api {
   setUserInfo(userInfo) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headersContent,
       body: JSON.stringify({
         name: userInfo.name,
@@ -40,6 +43,7 @@ class Api {
   setCard(card) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
+      credentials: 'include',
       headers: this._headersContent,
       body: JSON.stringify({
         name: card.name,
@@ -52,6 +56,7 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headersContent,
     })
         .then(this._getResponseData);
@@ -60,6 +65,7 @@ class Api {
   changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: isLiked ? 'PUT' : 'DELETE',
+      credentials: 'include',
       headers: this._headersContent
     })
         .then(this._getResponseData)
@@ -68,6 +74,7 @@ class Api {
   setAvatar(userInfo) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headersContent,
       body: JSON.stringify({
         avatar: userInfo.avatar
@@ -87,9 +94,8 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: 'http://api.mesto.subb.nomoredomains.rocks/',
+  baseUrl: 'http://api.mesto.subb.nomoredomains.rocks',
   headers: {
-    authorization: 'd9890bda-3f75-4adf-b332-5e1f920022f8',
     'Content-Type': 'application/json'
   }
 })

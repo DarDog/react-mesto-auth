@@ -23,19 +23,18 @@ class Auth {
         "Content-type": "application/json"
       },
       method: 'POST',
-      body: JSON.stringify({password, email})
+      body: JSON.stringify({email, password})
     })
-        .then(res => {
-          return this._getResponseData(res)
-        })
+        // .then(res => {
+        //   return this._getResponseData(res)
+        // })
   }
 
-  getUserInfo(token) {
+  getUserInfo() {
     return fetch(`${this._BASE_URL}/users/me`, {
-      method: 'GET',
+      credentials: 'include',
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`
       }
     })
         .then(res => {
@@ -54,5 +53,5 @@ class Auth {
 }
 
 export const auth = new Auth({
-  baseUrl: 'http://api.mesto.subb.nomoredomains.rocks/',
+  baseUrl: 'http://api.mesto.subb.nomoredomains.rocks',
 });
