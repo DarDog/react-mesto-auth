@@ -94,8 +94,7 @@ class Api {
 }
 
 export const api = new Api({
-  // baseUrl: 'https://api.mesto.subb.nomoredomains.rocks',
-  baseUrl: 'http://localhost:3001',
+  baseUrl: 'https://api.mesto.subb.nomoredomains.rocks',
   headers: {
     'Content-Type': 'application/json'
   }

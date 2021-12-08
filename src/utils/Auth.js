@@ -55,6 +55,5 @@ class Auth {
 }
 
 export const auth = new Auth({
-  // baseUrl: 'https://api.mesto.subb.nomoredomains.rocks',
-  baseUrl: 'http://localhost:3001',
+  baseUrl: 'https://api.mesto.subb.nomoredomains.rocks',
 });
