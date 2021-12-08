@@ -18,6 +18,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import Success from "./popups/Success";
 import Fail from "./popups/Fail";
 
+const AUTHORIZATION_ERROR_CODE = 403;
+
 function App () {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false),
     [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false),
@@ -37,7 +39,7 @@ function App () {
   const history = useHistory();
 
   React.useEffect(() => {
-    if (localStorage.getItem('isLoggedIn')) {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
       Promise.all([
         api.getUserInfo(),
         api.getInitialCards()
@@ -45,12 +47,17 @@ function App () {
         .then(([userInfo, cards]) => {
           setLoggedIn(true);
           setCurrentUser(userInfo);
-          setCards(cards);
+          setCards(cards.reverse());
           history.push('/')
         })
-        .catch(err => {
-          setErrorMassage(err);
-          setIsErrorPopupOpen(true);
+        .catch((err) => {
+          if (err.status === AUTHORIZATION_ERROR_CODE) {
+            localStorage.setItem('isLoggedIn', false)
+            history.push('/sign-in')
+          } else {
+            setErrorMassage(`Ошибка: ${err.status}`);
+            setIsErrorPopupOpen(true);
+          }
         })
         .finally(() => {
           setTimeout(showContent, 2000)
@@ -139,17 +146,20 @@ function App () {
   }, [])
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(like => like._id === currentUser._id);
+    const isLiked = card.likes.some(like => like === currentUser._id);
 
     api.changeLikeCardStatus(card._id, !isLiked)
       .then(newCard => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        console.log(newCard)
+        setCards((state) => state.map((c) => c._id === card._id ? newCard.card : c));
       })
       .catch(err => {
         setErrorMassage(err);
         setIsErrorPopupOpen(true);
       })
   }
+
+  console.log(cards)
 
   const handleCardDeleteClick = (card) => {
     setIsDeleterPopupOpen(true);
@@ -172,7 +182,7 @@ function App () {
     buttonLoadStatus('Создается..')
     api.setCard(card)
       .then(newCard => {
-        setCards([newCard, ...cards]);
+        setCards([newCard.card, ...cards]);
         closeAllPopups();
       })
       .catch(err => {
@@ -198,12 +208,21 @@ function App () {
 
   const handleAuthorization = (authUserInfo) => {
     auth.authorization(authUserInfo.password, authUserInfo.email)
-      .then((data) => {
+      .then(() => {
         setLoggedIn(true);
+        localStorage.setItem('isLoggedIn', 'true')
         history.push('/')
+        console.log('hi there')
       })
       .catch(err => {
-        console.error(err)
+        if (err.status === AUTHORIZATION_ERROR_CODE) {
+          setErrorMassage(`Введены не верные эмаил или пароль`);
+          setIsErrorPopupOpen(true);
+        } else {
+          setErrorMassage(`Ошибка: ${err.status}`);
+          setIsErrorPopupOpen(true);
+        }
+
       })
   }
 

@@ -7,8 +7,8 @@ class Api {
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headersContent,
       credentials: 'include',
-      headers: this._headersContent
     })
         .then((res) => {
           return this._getResponseData(res);
@@ -17,8 +17,8 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headersContent,
       credentials: 'include',
-      headers: this._headersContent
     })
         .then((res) => {
           return this._getResponseData(res);
@@ -63,7 +63,7 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: isLiked ? 'PUT' : 'DELETE',
       credentials: 'include',
       headers: this._headersContent
@@ -88,13 +88,14 @@ class Api {
     if (res.ok) {
       return res.json()
     } else {
-      return Promise.reject(`Ошибка: ${res.status}`)
+      return Promise.reject(res)
     }
   }
 }
 
 export const api = new Api({
-  baseUrl: 'http://api.mesto.subb.nomoredomains.rocks',
+  // baseUrl: 'https://api.mesto.subb.nomoredomains.rocks',
+  baseUrl: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json'
   }

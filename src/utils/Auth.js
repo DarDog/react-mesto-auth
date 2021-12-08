@@ -20,8 +20,10 @@ class Auth {
   authorization(password, email) {
     return fetch(`${this._BASE_URL}/signin`, {
       headers: {
+        "Accept": "application/json",
         "Content-type": "application/json"
       },
+      credentials: 'include',
       method: 'POST',
       body: JSON.stringify({email, password})
     })
@@ -47,11 +49,12 @@ class Auth {
     if (res.ok) {
       return res.json()
     } else {
-      return Promise.reject(`Ошибка: ${res.status}`)
+      return Promise.reject(`Ошибка: ${res}`)
     }
   }
 }
 
 export const auth = new Auth({
-  baseUrl: 'http://api.mesto.subb.nomoredomains.rocks',
+  // baseUrl: 'https://api.mesto.subb.nomoredomains.rocks',
+  baseUrl: 'http://localhost:3001',
 });
