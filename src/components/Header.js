@@ -28,7 +28,7 @@ function Header(props) {
           </ul>
         </article>
         <header className="header page__header">
-          <Link to="http://localhost:3000/" target="_self" className="logo header__logo"/>
+          <Link to="/" target="_self" className="logo header__logo"/>
           <ul className='nav'>
             <li className={`nav__item ${props.loggedIn && 'nav__item_hidden'}`}><NavLink to='/sign-in'
                                                                                          className={'nav__link'}

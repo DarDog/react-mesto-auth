@@ -159,8 +159,6 @@ function App () {
       })
   }
 
-  console.log(cards)
-
   const handleCardDeleteClick = (card) => {
     setIsDeleterPopupOpen(true);
     setDeletingCard(card);
@@ -212,7 +210,6 @@ function App () {
         setLoggedIn(true);
         localStorage.setItem('isLoggedIn', 'true')
         history.push('/')
-        console.log('hi there')
       })
       .catch(err => {
         if (err.status === AUTHORIZATION_ERROR_CODE) {
